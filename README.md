@@ -1,1 +1,2 @@
-# GofC
+# Game of Commerce
+
