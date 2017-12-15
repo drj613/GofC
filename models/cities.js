@@ -26,6 +26,14 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.INTEGER(5),
         allowNull: false
       },
+      wood_low: {
+        type: DataTypes.INTEGER(5),
+        allowNull: false
+      },
+      wood_high: {
+        type: DataTypes.INTEGER(5),
+        allowNull: false
+      },
       fish_low: {
         type: DataTypes.INTEGER(5),
         allowNull: false
@@ -50,35 +58,11 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.INTEGER(5),
         allowNull: false
       },
-      silk_low: {
+      wine_low: {
         type: DataTypes.INTEGER(5),
         allowNull: false
       },
-      silk_high: {
-        type: DataTypes.INTEGER(5),
-        allowNull: false
-      },
-      wood_low: {
-        type: DataTypes.INTEGER(5),
-        allowNull: false
-      },
-      wood_high: {
-        type: DataTypes.INTEGER(5),
-        allowNull: false
-      },
-      weapons_low: {
-        type: DataTypes.INTEGER(5),
-        allowNull: false
-      },
-      weapons_high: {
-        type: DataTypes.INTEGER(5),
-        allowNull: false
-      },
-      gems_low: {
-        type: DataTypes.INTEGER(5),
-        allowNull: false
-      },
-      gems_high: {
+      wine_high: {
         type: DataTypes.INTEGER(5),
         allowNull: false
       },
@@ -90,6 +74,22 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.INTEGER(5),
         allowNull: false
       },
+      weapons_low: {
+        type: DataTypes.INTEGER(5),
+        allowNull: false
+      },
+      weapons_high: {
+        type: DataTypes.INTEGER(5),
+        allowNull: false
+      },
+      silk_low: {
+        type: DataTypes.INTEGER(5),
+        allowNull: false
+      },
+      silk_high: {
+        type: DataTypes.INTEGER(5),
+        allowNull: false
+      },
       poison_low: {
         type: DataTypes.INTEGER(5),
         allowNull: false
@@ -98,19 +98,19 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.INTEGER(5),
         allowNull: false
       },
+      gems_low: {
+        type: DataTypes.INTEGER(5),
+        allowNull: false
+      },
+      gems_high: {
+        type: DataTypes.INTEGER(5),
+        allowNull: false
+      },
       dragonglass_low: {
         type: DataTypes.INTEGER(5),
         allowNull: false
       },
       dragonglass_high: {
-        type: DataTypes.INTEGER(5),
-        allowNull: false
-      },
-      wine_low: {
-        type: DataTypes.INTEGER(5),
-        allowNull: false
-      },
-      wine_high: {
         type: DataTypes.INTEGER(5),
         allowNull: false
       }
