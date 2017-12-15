@@ -116,6 +116,9 @@ module.exports = function(sequelize, DataTypes) {
       }
 
 
+    },
+    {
+      timestamps: false
     });
 
     console.log(Cities);
