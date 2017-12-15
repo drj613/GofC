@@ -7,7 +7,6 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var methodOverride = require("method-override");
-var exphbs = require("express-handlebars");
 
 // Sets up the Express App
 // =============================================================
@@ -18,11 +17,11 @@ app.use(bodyParser.urlencoded({
 	extended: false
 }))
 
+
+// Requiring our models for syncing
+var db = require("./models");
+
 app.use(methodOverride("_method"));
-app.engine("handlebars", exphbs({
-	defaultlayout: "main"
-}));
-app.set("view engine", "handlebars");
 
 var routes = require("./controllers/routes.js");
 app.use("/", routes);
@@ -31,7 +30,8 @@ var PORT = process.env.PORT || 8080;
 
 // Starts the server to begin listening
 // =============================================================
-app.listen(PORT, function() {
-  console.log("App listening on PORT " + PORT);
+db.sequelize.sync({ force: true }).then(function() {
+  app.listen(PORT, function() {
+    console.log("App listening on PORT " + PORT);
+  });
 });
-
