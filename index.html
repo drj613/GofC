@@ -18,10 +18,26 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
     </head>
     <body>
-        <div class="site">
-            <img src="./Assets/img/tradeMap.jpg">
-        </div>
+        <!-- <canvas class="site" width="2450" height="3060"></canvas>    -->
         
 
+        <div class="site">
+            <img src="./Assets/img/tradeMap.jpg" width="2452" height="3064" alt="Map of Westeros" usemap="#map">
+            <map name="map" id="map">
+                <area id="castleBlack" shape="rect" coords="887, 238, 1006, 286" href="" alt="Castle Black" title="Castle Black">
+                <area id="winterfell" shape="rect" coords="670, 718, 766, 789" href="" alt="Winterfell" title="Winterfell">
+                <area id="theTwins" shape="rect" coords="599, 1438, 718, 1486" href="" alt="The Twins" title="The Twins">
+                <area id="pyke" shape="rect" coords="190, 1582, 309, 1655" href="" alt="Pyke" title="Pyke">
+                <area id="theEyrie" shape="rect" coords="1056, 1536, 1150, 1632" href="" alt="The Eyrie" title="The Eyrie">
+                <area id="harrenhal" shape="rect" coords="791, 1751, 910, 1845" href="" alt="Harrenhal" title="Harrenhal">
+                <area id="dragonstone" shape="rect" coords="1245, 1870, 1367, 1966" href="" alt="Dragonstone" title="Dragonstone">
+                <area id="kingsLanding" shape="rect" coords="1006, 2014, 1125, 2087" href="" alt="King\'s Landing" title="King\'s Landing">
+                <area id="firstMen" shape="rect" coords="743, 94, 887, 167" href="" alt="First of the First Men" title="First of the First Men">
+                <area id="pentos" shape="rect" coords="1702, 2037, 1774, 2110" href="" alt="Pentos" title="Pentos">
+                </map>
+            </div>
+
+        <canvas id="animTest"></canvas>
+            
     </body>
 </html>
