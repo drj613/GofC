@@ -305,30 +305,22 @@ function seedModel1(db) {
     return returnablePromise;
 }
 
-// function seedModel2() {
-//     return Promise.all([
-//         model2.create({
-//             //thing
-//         }),
-//         model2.create({
-//             //thing
-//         }),
-//         model2.create({
-//             //thing
-//         }),
-//         model2.create({
-//             //thing
-//         }),
-//     ]);
-// }
+function seedModel2(db) {
+    return Promise.all([
+        db.Player.create({
+            username: 'SamplePlayer'
+        })
+    ]);
+}
 
 function seed(db) {
-    const firstSeedPromise = seedModel1(db);
-
-    console.log('Our seed promise: ', firstSeedPromise);
+    
+    //Run seed functions to populate db
     return Promise.all([
 
-        firstSeedPromise
+        seedModel1(db),
+        seedModel2(db)
+
     ]);
 }
 
