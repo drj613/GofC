@@ -34,6 +34,11 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false,
         defaultValue: 100
       },
+      timecount: {
+          type: DataTypes.INTEGER(10),
+          allowNull: false,
+          defaultValue: 1
+      },
       grain: {
         type: DataTypes.INTEGER(10),
         allowNull: false,
@@ -94,7 +99,10 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false,
         defaultValue: 0
       }
+      
 
+    },{
+        timestamps: false
     });
 
       return Player;

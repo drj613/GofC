@@ -7,6 +7,8 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var methodOverride = require("method-override");
+// var seed = require('./seeders/city_data.js');
+var seed = require('./seeders/seeds.js');
 
 // Sets up the Express App
 // =============================================================
@@ -14,7 +16,7 @@ var app = express();
 app.use(express.static(__dirname + "/public"))
 
 app.use(bodyParser.urlencoded({
-	extended: false
+  extended: false
 }))
 
 
@@ -30,8 +32,16 @@ var PORT = process.env.PORT || 8080;
 
 // Starts the server to begin listening
 // =============================================================
-db.sequelize.sync({ force: true }).then(function() {
-  app.listen(PORT, function() {
-    console.log("App listening on PORT " + PORT);
+db.sequelize.sync({
+    force: true
+  })
+  //Run seed functions to populate database
+  .then(function () {
+    var promise = seed(db);
+    console.log('This is our promise:', promise);
+    promise.then(function () {
+      app.listen(PORT, function () {
+        console.log("App listening on PORT " + PORT);
+      });
+    });
   });
-});
