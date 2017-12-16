@@ -1,7 +1,16 @@
 $(document).ready(function () {
     
-    var horizCarriage = new Image();
-    horizCarriage.src = './Assets/img/horizCarriage-transparent.png';
+    // Prevent map area clicks from refreshing the page
+    $('map[name=map] area').on('click',function(e){
+        e.stopPropagation();
+        return false;
+    });
+
+    var leftCarriage = new Image();
+    leftCarriage.src = './Assets/img/horizCarriage-transparent.png';
+
+    var rightCarriage = new Image();
+    rightCarriage.src = './Assets/img/horizCarriageRt-transparent.png';
 
     function sprite(options){
         var that = {},
@@ -47,21 +56,21 @@ $(document).ready(function () {
     }
 
     var canvas = document.getElementById("animTest");
-    canvas.width = 184;
-    canvas.height = 90;
+    canvas.width = 2452;
+    canvas.height = 3064;
 
     var hrzMove = sprite({
         context: canvas.getContext("2d"),
         width: 920,
         height: 90,
-        image: horizCarriage,
+        image: leftCarriage,
         numberOfFrames: 5,
         ticksPerFrame: 7,
         loop: true
     });
 
 
-    horizCarriage.onload = hrzMove.render;
+    leftCarriage.onload = hrzMove.render;
 
     function gameLoop(){
         window.requestAnimationFrame(gameLoop);
@@ -70,5 +79,5 @@ $(document).ready(function () {
         hrzMove.render();
     }
 
-    horizCarriage.addEventListener('load', gameLoop);
+    leftCarriage.addEventListener('load', gameLoop);
 });

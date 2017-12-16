@@ -11,6 +11,9 @@ body {
     line-height: 1.4;
 }
 
+.clickable{
+    outline: none;
+}
 /*
  * Remove the gap between images and the bottom of their containers: h5bp.com/i/440
  */
@@ -19,8 +22,12 @@ img {
     vertical-align: middle;
 }
 
-.site {
-    background-image: url('../img/tradeMap.jpg');
+#animTest {
+    /* background-image: url("../img/tradeMap.jpg") */
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
 }
 
 a:hover {
