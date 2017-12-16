@@ -86,20 +86,13 @@ function getcityprices(data) {
 
 					//Find good and calculate price based on low and high range
 					var good = keyString.substr(0,keyString.indexOf('_'));
-
-					
-
 					var lowrange = data[i].dataValues[keys[j]];
 					var highrange = data[i].dataValues[keys[j+1]];
 					var currentPrice = parseInt((Math.random()*(highrange-lowrange)) + lowrange);
 
-					//Debug code
-					if (good === 'dragonglass') {
-						console.log(lowrange);
-						console.log(highrange);
-					}
 					prices[good] = currentPrice;
 
+					//Skips the next key field to get to the next good
 					j++;
 										
 				}
