@@ -60,6 +60,8 @@ router.put("/goods/update", function (req, res) {
 
 });
 
+
+//Find existing player data
 router.get('/player/:username', function (req,res) {
 
 	db.Player.findOne({
@@ -73,6 +75,7 @@ router.get('/player/:username', function (req,res) {
 
 });
 
+//Add new player to database
 router.post('/player/:username', function (req,res) {
 
 	db.Player.create({
