@@ -1,4 +1,25 @@
-function sprite(options){
+$(document).ready(function () {
+
+
+    //Coordinates for cities on areamap
+    var $castleBlackPos = $("#castleBlack").attr('coords').split(',');
+    var $winterfellPos = $("#winterfell").attr('coords').split(',');
+    var $theTwinsPos = $("#theTwins").attr('coords').split(',');
+    var $pykePos = $("#pyke").attr('coords').split(',');
+    var $theEyriePos = $("#theEyrie").attr('coords').split(',');
+    var $harrenhalPos = $("#harrenhal").attr('coords').split(',');
+    var $dragonstonePos = $("#dragonstone").attr('coords').split(',');
+    var $kingsLandingPos = $("#kingsLanding").attr('coords').split(',');
+    var $firstMenPos = $("#firstMen").attr('coords').split(',');
+    var $pentosPos = $("#pentos").attr('coords').split(',');  
+    // Init sprite sheets for carriage
+    var leftCarriage = new Image();
+    leftCarriage.src = './Assets/img/horizCarriage-transparent.png';
+
+    var rightCarriage = new Image();
+    rightCarriage.src = './Assets/img/horizCarriageRt-transparent.png';
+
+    function sprite(options){
     var that = {},
         frameIndex = 0,
         tickCount = 0,
@@ -48,7 +69,7 @@ function sprite(options){
     return that;
 }
 
-var canvas = document.getElementById("animTest");
+var canvas = document.querySelector("#animTest");
 var ctx = canvas.getContext("2d");
 canvas.width = 2452;
 canvas.height = 3064;
@@ -74,7 +95,9 @@ var hrzMoveRight = sprite({
     loop: true
 });
 
-leftCarriage.onload = canvas.drawImage(leftCarriage.src, $castleBlackPos[0], $castleBlackPos[1]);
+var canvas = document.getElementById("animTest");
+
+window.onload = ctx.drawImage(leftCarriage, 887, 238);
 // leftCarriage.onload = hrzMoveLeft.render;
 // rightCarriage.onload = hrzMoveRight.render;
 
@@ -87,3 +110,4 @@ function gameLoop(){
     }
 
 leftCarriage.addEventListener('load', gameLoop);
+});
