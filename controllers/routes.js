@@ -1,8 +1,13 @@
 var express = require("express");
 var router = express.Router();
 var db = require('../models');
+var path = require('path');
 
 // Sets up initial home/index route
+router.route('/').get(function(req,res) {
+	res.sendFile(path.join(__dirname, '../testindex.html'));
+});
+
 router.get("/priceupdate", function (req, res) {
 
 	db.Cities.findAll().then((data) => {
@@ -54,6 +59,29 @@ router.put("/goods/update", function (req, res) {
 
 
 });
+
+router.get('/player/:username', function (req,res) {
+
+	db.Player.findOne({
+		where: {
+			username: req.params.username
+		}
+	}).then( (data) => {
+
+		res.json(data);
+	});
+
+});
+
+router.post('/player/:username', function (req,res) {
+
+	db.Player.create({
+		username: req.params.username
+	}).then( (data) => {
+
+		res.json(data);
+	})
+})
 
 module.exports = router;
 
