@@ -4,11 +4,12 @@ var db = require('../models');
 var path = require('path');
 
 // Sets up initial home/index route
-router.route('/').get(function(req,res) {
+router.route('/').get(function (req, res) {
 	res.sendFile(path.join(__dirname, '../testindex.html'));
 });
 
 router.get("/priceupdate", function (req, res) {
+
 
 	db.Cities.findAll().then((data) => {
 		var returnData = getcityprices(data);
@@ -16,6 +17,21 @@ router.get("/priceupdate", function (req, res) {
 		res.json(returnData);
 
 	})
+
+});
+
+router.put('/location/update', function (req, res) {
+
+	db.Player.update({
+		cityid: req.body.cityid
+	}, {
+		where: {
+			username: req.body.player
+		}
+	}).then((data) => {
+
+		res.json(data);
+	});
 
 });
 
@@ -62,13 +78,13 @@ router.put("/goods/update", function (req, res) {
 
 
 //Find existing player data
-router.get('/player/:username', function (req,res) {
+router.get('/player/:username', function (req, res) {
 
 	db.Player.findOne({
 		where: {
 			username: req.params.username
 		}
-	}).then( (data) => {
+	}).then((data) => {
 
 		res.json(data);
 	});
@@ -76,15 +92,17 @@ router.get('/player/:username', function (req,res) {
 });
 
 //Add new player to database
-router.post('/player/:username', function (req,res) {
+router.post('/player/:username', function (req, res) {
 
 	db.Player.create({
 		username: req.params.username
-	}).then( (data) => {
+	}).then((data) => {
 
 		res.json(data);
-	})
-})
+	});
+});
+
+
 
 module.exports = router;
 
@@ -105,34 +123,30 @@ function getcityprices(data) {
 
 			//Set up variable to allow for string manipulation of key
 			var keyString = keys[j];
-			
+
 
 
 			if (keyString === 'city_name') {
 				cityObject.city = data[i].dataValues[keys[j]];
 
-			} 
-			else {
+			} else if (keyString === 'id') {
+				cityObject.id = data[i].dataValues[keys[j]];
+			} else {
 				if (keyString.indexOf('_') > 0 && keyString.indexOf('low' > 0)) {
 
 					//Find good and calculate price based on low and high range
-					var good = keyString.substr(0,keyString.indexOf('_'));
+					var good = keyString.substr(0, keyString.indexOf('_'));
 
-					
+
 
 					var lowrange = data[i].dataValues[keys[j]];
-					var highrange = data[i].dataValues[keys[j+1]];
-					var currentPrice = parseInt((Math.random()*(highrange-lowrange)) + lowrange);
+					var highrange = data[i].dataValues[keys[j + 1]];
+					var currentPrice = parseInt((Math.random() * (highrange - lowrange)) + lowrange);
 
-					//Debug code
-					if (good === 'dragonglass') {
-						console.log(lowrange);
-						console.log(highrange);
-					}
 					prices[good] = currentPrice;
 
 					j++;
-										
+
 				}
 			}
 

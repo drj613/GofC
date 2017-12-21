@@ -55,6 +55,8 @@ a:hover {
     clear: both;
 }
 
+
+
 /* ==========================================================================
    EXAMPLE Media Queries for Responsive Design.
    Theses examples override the primary ('mobile first') styles.
@@ -69,3 +71,20 @@ a:hover {
        only screen and (min-resolution: 144dpi) {
     /* Style adjustments for viewports that meet the condition */
 }
+
+/* Chris' test div styling */
+
+#gamebox {
+    background: lightblue;
+    position: fixed;
+    top: 25px;
+    left: 25px;
+    z-index: 3;
+    font-size: 12;
+    line-height: 0.5;
+}
+
+span {
+    text-align: right;
+}
+
