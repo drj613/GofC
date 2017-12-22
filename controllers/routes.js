@@ -5,7 +5,7 @@ var path = require('path');
 
 // Sets up initial home/index route
 router.route('/').get(function (req, res) {
-	res.sendFile(path.join(__dirname, '../testindex.html'));
+	res.sendFile(path.join(__dirname, '../index.html'));
 });
 
 router.get("/priceupdate", function (req, res) {
