@@ -10,49 +10,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
     <meta http-equiv="cleartype" content="on">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <link rel="stylesheet" href="Assets/css/normalize.css">
-    <link rel="stylesheet" href="Assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/normalize.css">
+    <link rel="stylesheet" href="assets/css/main.css">
     <link rel='shortcut icon' type='image/x-icon' href='./favicon.ico'/>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    <script src="Assets/js/helper.js"></script>
-    <script src="Assets/js/main.js"></script>
-    <script src="Assets/js/animation.js"></script>
+    <script src="assets/js/helper.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/animation.js"></script>
+    <script src='assets/js/game.js'></script>
 </head>
 
 <body>
     <div class="site">
-        <img src="./Assets/img/tradeMap.jpg" width="2452" height="3064" alt="" usemap="#map">
+        <img src="./assets/img/tradeMap.jpg" width="2452" height="3064" alt="" usemap="#map">
         <canvas id="animTest"></canvas>
         <!-- Clickable area modal -->
         <map name="map" id="map">
             <button>
-                <area class="clickable" id="castleBlack" shape="rect" coords="887, 238, 1006, 286" href="" alt="Castle Black" title="Castle Black" data-reveal-id="castle-black" data-toggle="modal" data-target="#castleBlackModal">
+                <area class="clickable" id="castleBlack" shape="rect" coords="887, 238, 1006, 286" href="" alt="Castle Black" title="Castle Black" data-reveal-id="castle-black" data-toggle="modal" data-target="#castleBlackModal" data-cityid='2'>
             </button>
             <button>
-                <area class="clickable" id="winterfell" shape="rect" coords="670, 718, 766, 789" href="" alt="Winterfell" title="Winterfell" data-reveal-id="winterfell" data-toggle="modal" data-target="#winterfellModal">
+                <area class="clickable" id="winterfell" shape="rect" coords="670, 718, 766, 789" href="" alt="Winterfell" title="Winterfell" data-reveal-id="winterfell" data-toggle="modal" data-target="#winterfellModal" data-cityid='3'>
             </button>
             <button>
-                <area class="clickable" id="theTwins"shape="rect" coords="599, 1438, 718, 1486" href="" alt="The Twins" title="The Twins" data-reveal-id="the-twins" data-toggle="modal" data-target="#theTwinsModal">
+                <area class="clickable" id="theTwins"shape="rect" coords="599, 1438, 718, 1486" href="" alt="The Twins" title="The Twins" data-reveal-id="the-twins" data-toggle="modal" data-target="#theTwinsModal" data-cityid='4'>
             </button>
             <button>
-                <area class="clickable" id="pyke" shape="rect" coords="190, 1582, 309, 1655" href="" alt="Pyke" title="Pyke" data-reveal-id="pyke" data-toggle="modal" data-target="#pykeModal">
+                <area class="clickable" id="pyke" shape="rect" coords="190, 1582, 309, 1655" href="" alt="Pyke" title="Pyke" data-reveal-id="pyke" data-toggle="modal" data-target="#pykeModal" data-cityid='5'>
             </button>
             <button>
-                <area class="clickable" id="theEyrie" shape="rect" coords="1056, 1536, 1150, 1632" href="" alt="The Eyrie" title="The Eyrie" data-reveal-id="the-eyrie" data-toggle="modal" data-target="#eyrieModal">
+                <area class="clickable" id="theEyrie" shape="rect" coords="1056, 1536, 1150, 1632" href="" alt="The Eyrie" title="The Eyrie" data-reveal-id="the-eyrie" data-toggle="modal" data-target="#eyrieModal" data-cityid='6'>
             </button>
             <button>
-                <area class="clickable" id="harrenhal" shape="rect" coords="791, 1751, 910, 1845" href="" alt="Harrenhal" title="Harrenhal" data-reveal-id="harrenhal" data-toggle="modal" data-target="#harrenhalModal">
+                <area class="clickable" id="harrenhal" shape="rect" coords="791, 1751, 910, 1845" href="" alt="Harrenhal" title="Harrenhal" data-reveal-id="harrenhal" data-toggle="modal" data-target="#harrenhalModal" data-cityid='8'>
             </button>
             <button>
-                <area class="clickable" id="dragonstone"shape="rect" coords="1245, 1870, 1367, 1966" href="" alt="Dragonstone" title="Dragonstone" data-reveal-id="dragonstone" data-toggle="modal" data-target="#dragonstoneModal">
+                <area class="clickable" id="dragonstone"shape="rect" coords="1245, 1870, 1367, 1966" href="" alt="Dragonstone" title="Dragonstone" data-reveal-id="dragonstone" data-toggle="modal" data-target="#dragonstoneModal" data-cityid='9'>
             </button>
             <button>
-                <area class="clickable" id="kingsLanding" shape="rect" coords="1006, 2014, 1125, 2087" href="" alt="King\'s Landing" title="King\'s Landing" data-reveal-id="kings-landing" data-toggle="modal" data-target="#kingsLandingModal">
+                <area class="clickable" id="kingsLanding" shape="rect" coords="1006, 2014, 1125, 2087" href="" alt="King\'s Landing" title="King\'s Landing" data-reveal-id="kings-landing" data-toggle="modal" data-target="#kingsLandingModal" data-cityid='1'>
             </button>
             <button>
-                <area class="clickable" id="pentos" shape="rect" coords="1702, 2037, 1774, 2110" href="" alt="Pentos" title="Pentos" data-reveal-id="pentos" data-toggle="modal" data-target="#pentosModal">
+                <area class="clickable" id="pentos" shape="rect" coords="1702, 2037, 1774, 2110" href="" alt="Pentos" title="Pentos" data-reveal-id="pentos" data-toggle="modal" data-target="#pentosModal" data-cityid='10'>
             </button>
         </map>
         <!-- Modal -->
@@ -67,27 +69,29 @@
                     </div>
                     <div class="modal-body">
                         <p>Home to the frustrated men of the Night’s Watch, Castle Black is one of the only three manned castles left on the Wall. It is situated halfway along the length of the Wall and has many notable residents including Jon Snow. Castle Black is responsible for keeping those who live North of the Wall, in the North. Winter is coming and Castle Black is first to feel it… </p>
-                        <img src="./Assets/img/Night's-Watch-Main-Shield.png">
+                        <img src="./assets/img/Night's-Watch-Main-Shield.png">
                     </div>
                     <div class="buy-goods">Buy Goods in Castle Black
                         <ul>
-                            <li>Grain (5-20)</li>
-                            <li>Wood (8-30)</li>
-                            <li>Fish (10-40)</li>
-                            <li>Cloth (20-60)</li>
-                            <li>Metal (25-75)</li>
-                            <li>Wine (30-100)</li>
-                            <li>Medicine (40-200)</li>
-                            <li>Weapons (75-500)</li>
-                            <li>Silk (100-750)</li>
-                            <li>Poison (200-1000)</li>
-                            <li>Gems (500-2000)</li>
-                            <li>Dragon Glass (1500-10000)</li>
+                            <li>Grain: <span class='grainprice'>empty</span></li>
+                            <li>Wood: <span class='woodprice'>text</span></li>
+                            <li>Fish: <span class='fishprice'>is</span></li>
+                            <li>Cloth: <span class='clothprice'>empty</span></li>
+                            <li>Metal: <span class='metalprice'>space</span></li>
+                            <li>Wine: <span class='wineprice'>for</span></li>
+                            <li>Medicine: <span class='medicineprice'>which</span></li>
+                            <li>Weapons: <span class='weaponsprice'>there</span></li>
+                            <li>Silk: <span class='silkprice'></span>is</li>
+                            <li>Poison: <span class='poisonprice'>no</span></li>
+                            <li>Gems: <span class='gemsprice'>answer</span></li>
+                            <li>Dragon Glass: <span class='dragonglassprice'>dude</span></li>
                         </ul>
                     </div>
                     <div class="my-inventory"> My Inventory
                     </div>
                     <div class="modal-footer">
+                        <button type="button" class="btn btn-primary buy">Buy</button>
+                        <button type="button" class="btn btn-alert sell">Sell</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Depart the city</button>
                     </div>
                 </div>
@@ -104,28 +108,31 @@
                     </div>
                     <div class="modal-body">
                         <p>Located in the center of the North, Winterfell is the regional capital and the ancestral home of House Stark. It is situated atop hot springs which makes for hot summers and warm winters. House Stark has held Winterfell for 8,000 years, but has been ruled by two other Houses in the course of its history.</p>
-                        <img src="./Assets/img/House-Stark-Main-Shield.png">
+                        <img src="./assets/img/House-Stark-Main-Shield.png">
                     </div>
                     <div class="buy-goods">Buy Goods in Winterfell
                         <ul>
-                            <li>Grain (5-20)</li>
-                            <li>Wood (8-30)</li>
-                            <li>Fish (10-40)</li>
-                            <li>Cloth (20-60)</li>
-                            <li>Metal (25-75)</li>
-                            <li>Wine (30-100)</li>
-                            <li>Medicine (40-200)</li>
-                            <li>Weapons (75-500)</li>
-                            <li>Silk (100-750)</li>
-                            <li>Poison (200-1000)</li>
-                            <li>Gems (500-2000)</li>
-                            <li>Dragon Glass (1500-10000)</li>
+                            <li>Grain: <span class='grainprice'></span></li>
+                            <li>Wood: <span class='woodprice'></span></li>
+                            <li>Fish: <span class='fishprice'></span></li>
+                            <li>Cloth: <span class='clothprice'></span></li>
+                            <li>Metal: <span class='metalprice'></span></li>
+                            <li>Wine: <span class='wineprice'></span></li>
+                            <li>Medicine: <span class='medicineprice'></span></li>
+                            <li>Weapons: <span class='weaponsprice'></span></li>
+                            <li>Silk: <span class='silkprice'></span></li>
+                            <li>Poison: <span class='poisonprice'></span></li>
+                            <li>Gems: <span class='gemsprice'></span></li>
+                            <li>Dragon Glass: <span class='dragonglassprice'></span></li>
                         </ul>
                     </div>
                     <div class="my-inventory"> My Inventory
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Depart the city</button>
+                            <button type="button" class="btn btn-primary buy" id='uniquewinterfell'>Buy</button>
+                            <button type="button" class="btn btn-alert sell">Sell</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Depart the city</button>
+                            
                     </div>
                 </div>
             </div>
@@ -141,27 +148,29 @@
                     </div>
                     <div class="modal-body">
                         <p>Home to House Frey, The Twins represents the only crossing point over the Green Fork for hundreds of miles in either direction. It is sometimes referred to as The Crossing since it is a major barrier to travelers coming from the North. Lying directly on the main route from Winterfell to Riverrun, these castles are an integral part in the Game of Thrones.  </p>
-                        <img src="./Assets/img/House-Frey-Main-Shield-The-Twins.png">
+                        <img src="./assets/img/House-Frey-Main-Shield-The-Twins.png">
                     </div>
                     <div class="buy-goods">Buy Goods in The Twins
                         <ul>
-                            <li>Grain (5-20)</li>
-                            <li>Wood (8-30)</li>
-                            <li>Fish (10-40)</li>
-                            <li>Cloth (20-60)</li>
-                            <li>Metal (25-75)</li>
-                            <li>Wine (30-100)</li>
-                            <li>Medicine (40-200)</li>
-                            <li>Weapons (75-500)</li>
-                            <li>Silk (100-750)</li>
-                            <li>Poison (200-1000)</li>
-                            <li>Gems (500-2000)</li>
-                            <li>Dragon Glass (1500-10000)</li>
+                            <li>Grain: <span class='grainprice'></span></li>
+                            <li>Wood: <span class='woodprice'></span></li>
+                            <li>Fish: <span class='fishprice'></span></li>
+                            <li>Cloth: <span class='clothprice'></span></li>
+                            <li>Metal: <span class='metalprice'></span></li>
+                            <li>Wine: <span class='wineprice'></span></li>
+                            <li>Medicine: <span class='medicineprice'></span></li>
+                            <li>Weapons: <span class='weaponsprice'></span></li>
+                            <li>Silk: <span class='silkprice'></span></li>
+                            <li>Poison: <span class='poisonprice'></span></li>
+                            <li>Gems: <span class='gemsprice'></span></li>
+                            <li>Dragon Glass: <span class='dragonglassprice'></span></li>
                         </ul>
                     </div>
                     <div class="my-inventory"> My Inventory
                     </div>
                     <div class="modal-footer">
+                            <button type="button" class="btn btn-primary buy">Buy</button>
+                            <button type="button" class="btn btn-alert sell">Sell</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Depart the city</button>
                     </div>
                 </div>
@@ -178,27 +187,29 @@
                     </div>
                     <div class="modal-body">
                         <p>One of the seven major Iron islands, Pyke is the capital and an ancient stronghold and seat of House Greyjoy. The two towers that make up the castle are standing on stone stacks. This island is not suitable for ships landing, so they are re-routed to the nearby hard town Lordsport.</p>
-                        <img src="./Assets/img/House-Greyjoy-Main-Shield-Pyke.png">
+                        <img src="./assets/img/House-Greyjoy-Main-Shield-Pyke.png">
                     </div>
                     <div class="buy-goods">Buy Goods in Pyke
                         <ul>
-                            <li>Grain (5-20)</li>
-                            <li>Wood (8-30)</li>
-                            <li>Fish (10-40)</li>
-                            <li>Cloth (20-60)</li>
-                            <li>Metal (25-75)</li>
-                            <li>Wine (30-100)</li>
-                            <li>Medicine (40-200)</li>
-                            <li>Weapons (75-500)</li>
-                            <li>Silk (100-750)</li>
-                            <li>Poison (200-1000)</li>
-                            <li>Gems (500-2000)</li>
-                            <li>Dragon Glass (1500-10000)</li>
+                            <li>Grain: <span class='grainprice'></span></li>
+                            <li>Wood: <span class='woodprice'></span></li>
+                            <li>Fish: <span class='fishprice'></span></li>
+                            <li>Cloth: <span class='clothprice'></span></li>
+                            <li>Metal: <span class='metalprice'></span></li>
+                            <li>Wine: <span class='wineprice'></span></li>
+                            <li>Medicine: <span class='medicineprice'></span></li>
+                            <li>Weapons: <span class='weaponsprice'></span></li>
+                            <li>Silk: <span class='silkprice'></span></li>
+                            <li>Poison: <span class='poisonprice'></span></li>
+                            <li>Gems: <span class='gemsprice'></span></li>
+                            <li>Dragon Glass: <span class='dragonglassprice'></span></li>
                         </ul>
                     </div>
                     <div class="my-inventory"> My Inventory
                     </div>
                     <div class="modal-footer">
+                            <button type="button" class="btn btn-primary buy">Buy</button>
+                            <button type="button" class="btn btn-alert sell">Sell</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Depart the city</button>
                     </div>
                 </div>
@@ -215,27 +226,29 @@
                     </div>
                     <div class="modal-body">
                         <p>The Eyrie is located near the east coast of Westeros and straddles the top of a peak so high that it is just about impenetrable except for with dragons. It is home to House Arryn and is known best for its Moon Door.</p>
-                        <img src="./Assets/img/House-Arryn-Main-Shield-The-Eyrie.png">
+                        <img src="./assets/img/House-Arryn-Main-Shield-The-Eyrie.png">
                     </div>
                     <div class="buy-goods">Buy Goods in The Eyrie
                         <ul>
-                            <li>Grain (5-20)</li>
-                            <li>Wood (8-30)</li>
-                            <li>Fish (10-40)</li>
-                            <li>Cloth (20-60)</li>
-                            <li>Metal (25-75)</li>
-                            <li>Wine (30-100)</li>
-                            <li>Medicine (40-200)</li>
-                            <li>Weapons (75-500)</li>
-                            <li>Silk (100-750)</li>
-                            <li>Poison (200-1000)</li>
-                            <li>Gems (500-2000)</li>
-                            <li>Dragon Glass (1500-10000)</li>
+                            <li>Grain: <span class='grainprice'></span></li>
+                            <li>Wood: <span class='woodprice'></span></li>
+                            <li>Fish: <span class='fishprice'></span></li>
+                            <li>Cloth: <span class='clothprice'></span></li>
+                            <li>Metal: <span class='metalprice'></span></li>
+                            <li>Wine: <span class='wineprice'></span></li>
+                            <li>Medicine: <span class='medicineprice'></span></li>
+                            <li>Weapons: <span class='weaponsprice'></span></li>
+                            <li>Silk: <span class='silkprice'></span></li>
+                            <li>Poison: <span class='poisonprice'></span></li>
+                            <li>Gems: <span class='gemsprice'></span></li>
+                            <li>Dragon Glass: <span class='dragonglassprice'></span></li>
                         </ul>
                     </div>
                     <div class="my-inventory"> My Inventory
                     </div>
                     <div class="modal-footer">
+                            <button type="button" class="btn btn-primary buy">Buy</button>
+                            <button type="button" class="btn btn-alert sell">Sell</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Depart the city</button>
                     </div>
                 </div>
@@ -252,27 +265,29 @@
                     </div>
                     <div class="modal-body">
                         <p>Harrenhal is a huge castle, the largest one in all of Westeros, though it is also the most ill-omened. It is located on the northern shore of the Gods Eye lake at the heart of the Riverlands, south of the River Trident and northwest of King's Landing. It is not home to any house. </p>
-                        <img src="./Assets/img/Harrenhal.png">
+                        <img src="./assets/img/Harrenhal.png">
                     </div>
                     <div class="buy-goods">Buy Goods in Harrenhal
                         <ul>
-                            <li>Grain (5-20)</li>
-                            <li>Wood (8-30)</li>
-                            <li>Fish (10-40)</li>
-                            <li>Cloth (20-60)</li>
-                            <li>Metal (25-75)</li>
-                            <li>Wine (30-100)</li>
-                            <li>Medicine (40-200)</li>
-                            <li>Weapons (75-500)</li>
-                            <li>Silk (100-750)</li>
-                            <li>Poison (200-1000)</li>
-                            <li>Gems (500-2000)</li>
-                            <li>Dragon Glass (1500-10000)</li>
+                            <li>Grain: <span class='grainprice'></span></li>
+                            <li>Wood: <span class='woodprice'></span></li>
+                            <li>Fish: <span class='fishprice'></span></li>
+                            <li>Cloth: <span class='clothprice'></span></li>
+                            <li>Metal: <span class='metalprice'></span></li>
+                            <li>Wine: <span class='wineprice'></span></li>
+                            <li>Medicine: <span class='medicineprice'></span></li>
+                            <li>Weapons: <span class='weaponsprice'></span></li>
+                            <li>Silk: <span class='silkprice'></span></li>
+                            <li>Poison: <span class='poisonprice'></span></li>
+                            <li>Gems: <span class='gemsprice'></span></li>
+                            <li>Dragon Glass: <span class='dragonglassprice'></span></li>
                         </ul>
                     </div>
                     <div class="my-inventory"> My Inventory
                     </div>
                     <div class="modal-footer">
+                            <button type="button" class="btn btn-primary buy">Buy</button>
+                            <button type="button" class="btn btn-alert sell">Sell</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Depart the city</button>
                     </div>
                 </div>
@@ -289,27 +304,29 @@
                     </div>
                     <div class="modal-body">
                         <p>Home to one of the Great Houses of Westeros, Dragonstone is the castle that stands upon an island in Blackwater Bay. It is home to House Targaryen and was built using Valyrian stonemasonry techniques. Functioning as a military base, Dragonstone is covered in dragon relics and motifs. </p>
-                        <img src="./Assets/img/house-targaryen-main-shield-Dragonstone.png">
+                        <img src="./assets/img/house-targaryen-main-shield-Dragonstone.png">
                     </div>
                     <div class="buy-goods">Buy Goods in Dragonstone
                         <ul>
-                            <li>Grain (5-20)</li>
-                            <li>Wood (8-30)</li>
-                            <li>Fish (10-40)</li>
-                            <li>Cloth (20-60)</li>
-                            <li>Metal (25-75)</li>
-                            <li>Wine (30-100)</li>
-                            <li>Medicine (40-200)</li>
-                            <li>Weapons (75-500)</li>
-                            <li>Silk (100-750)</li>
-                            <li>Poison (200-1000)</li>
-                            <li>Gems (500-2000)</li>
-                            <li>Dragon Glass (1500-10000)</li>
+                            <li>Grain: <span class='grainprice'></span></li>
+                            <li>Wood: <span class='woodprice'></span></li>
+                            <li>Fish: <span class='fishprice'></span></li>
+                            <li>Cloth: <span class='clothprice'></span></li>
+                            <li>Metal: <span class='metalprice'></span></li>
+                            <li>Wine: <span class='wineprice'></span></li>
+                            <li>Medicine: <span class='medicineprice'></span></li>
+                            <li>Weapons: <span class='weaponsprice'></span></li>
+                            <li>Silk: <span class='silkprice'></span></li>
+                            <li>Poison: <span class='poisonprice'></span></li>
+                            <li>Gems: <span class='gemsprice'></span></li>
+                            <li>Dragon Glass: <span class='dragonglassprice'></span></li>
                         </ul>
                     </div>
                     <div class="my-inventory"> My Inventory
                     </div>
                     <div class="modal-footer">
+                            <button type="button" class="btn btn-primary buy">Buy</button>
+                            <button type="button" class="btn btn-alert sell">Sell</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Depart the city</button>
                     </div>
                 </div>
@@ -326,27 +343,29 @@
                     </div>
                     <div class="modal-body">
                         <p>King's Landing is the capital, and largest city, of the Seven Kingdoms. Located on the east coast of Westeros in the Crownlands, just north of where the Blackwater Rush flows into Blackwater Bay and overlooking Blackwater Bay, King's Landing is the site of the Iron Throne and the Red Keep, the seat of the King of the Andals and the First Men. It enjoys a warm climate and life there is luxurious for those that can afford it, although it is not without its slums such as Flea Bottom.</p>
-                        <img src="./Assets/img/House-Lannister-Main-Shield-Kings-Landing.png">
+                        <img src="./assets/img/House-Lannister-Main-Shield-Kings-Landing.png">
                     </div>
                     <div class="buy-goods">Buy Goods in King's Landing
                         <ul>
-                            <li>Grain (5-20)</li>
-                            <li>Wood (8-30)</li>
-                            <li>Fish (10-40)</li>
-                            <li>Cloth (20-60)</li>
-                            <li>Metal (25-75)</li>
-                            <li>Wine (30-100)</li>
-                            <li>Medicine (40-200)</li>
-                            <li>Weapons (75-500)</li>
-                            <li>Silk (100-750)</li>
-                            <li>Poison (200-1000)</li>
-                            <li>Gems (500-2000)</li>
-                            <li>Dragon Glass (1500-10000)</li>
+                            <li>Grain: <span class='grainprice'></span></li>
+                            <li>Wood: <span class='woodprice'></span></li>
+                            <li>Fish: <span class='fishprice'></span></li>
+                            <li>Cloth: <span class='clothprice'></span></li>
+                            <li>Metal: <span class='metalprice'></span></li>
+                            <li>Wine: <span class='wineprice'></span></li>
+                            <li>Medicine: <span class='medicineprice'></span></li>
+                            <li>Weapons: <span class='weaponsprice'></span></li>
+                            <li>Silk: <span class='silkprice'></span></li>
+                            <li>Poison: <span class='poisonprice'></span></li>
+                            <li>Gems: <span class='gemsprice'></span></li>
+                            <li>Dragon Glass: <span class='dragonglassprice'></span></li>
                         </ul>
                     </div>
                     <div class="my-inventory"> My Inventory
                     </div>
                     <div class="modal-footer">
+                            <button type="button" class="btn btn-primary buy">Buy</button>
+                            <button type="button" class="btn btn-alert sell">Sell</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Depart the city</button>
                     </div>
                 </div>
@@ -363,32 +382,59 @@
                     </div>
                     <div class="modal-body">
                         <p>Pentos is one of the Free Cities, located on the western coastline of Essos, across the Narrow Sea from Westeros. It is a large, rich city-state of merchant lords. People and things from Pentos are known as Pentoshi. Pentos' economy is based mostly on trade and commerce of products such as cheese.</p>
-                        <img src="./Assets/img/Illyrio_Pentos.png">
+                        <img src="./assets/img/Illyrio_Pentos.png">
                     </div>
                     <div class="buy-goods">Buy Goods in Pentos
                         <ul>
-                            <li>Grain (5-20)</li>
-                            <li>Wood (8-30)</li>
-                            <li>Fish (10-40)</li>
-                            <li>Cloth (20-60)</li>
-                            <li>Metal (25-75)</li>
-                            <li>Wine (30-100)</li>
-                            <li>Medicine (40-200)</li>
-                            <li>Weapons (75-500)</li>
-                            <li>Silk (100-750)</li>
-                            <li>Poison (200-1000)</li>
-                            <li>Gems (500-2000)</li>
-                            <li>Dragon Glass (1500-10000)</li>
+                            <li>Grain: <span class='grainprice'></span></li>
+                            <li>Wood: <span class='woodprice'></span></li>
+                            <li>Fish: <span class='fishprice'></span></li>
+                            <li>Cloth: <span class='clothprice'></span></li>
+                            <li>Metal: <span class='metalprice'></span></li>
+                            <li>Wine: <span class='wineprice'></span></li>
+                            <li>Medicine: <span class='medicineprice'></span></li>
+                            <li>Weapons: <span class='weaponsprice'></span></li>
+                            <li>Silk: <span class='silkprice'></span></li>
+                            <li>Poison: <span class='poisonprice'></span></li>
+                            <li>Gems: <span class='gemsprice'></span></li>
+                            <li>Dragon Glass: <span class='dragonglassprice'></span></li>
                         </ul>
                     </div>
                     <div class="my-inventory"> My Inventory
                     </div>
                     <div class="modal-footer">
+                            <button type="button" class="btn btn-primary buy">Buy</button>
+                            <button type="button" class="btn btn-alert sell">Sell</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Depart the city</button>
                     </div>
                 </div>
             </div>
+
+           
+
+
         </div>
+    
+        <!-- Chris game testing div -->
+        <div id="gamebox">
+            <p>Player name: <span id='playerdata'></span></p>
+            <p>City: <span id='citydata'></span></p>
+            <p>Gold: <span id='golddata'></span></p>
+            <p>Current Inventory: <span id='currentdata'></span></p>
+            <p>Max Inventory: <span id='maxdata'></span></p>
+            <p>Grain: <span id='graindata'></span></p>
+            <p>Fish: <span id='fishdata'></span></p>
+            <p>Cloth: <span id='clothdata'></span></p>
+            <p>Metal: <span id='metaldata'></span></p>
+            <p>Silk: <span id='silkdata'></span></p>
+            <p>Wood: <span id='wooddata'></span></p>
+            <p>Weapons: <span id='weaponsdata'></span></p>
+            <p>Gems: <span id='gemsdata'></span></p>
+            <p>Medicine: <span id='medicinedata'></span></p>
+            <p>Poison: <span id='poisondata'></span></p>
+            <p>Dragon Glass: <span id='dragonglassdata'></span></p>
+        </div>
+    </div>
 </body>
 
 </html>
