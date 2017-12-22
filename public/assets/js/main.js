@@ -28,10 +28,10 @@ $(document).ready(function () {
 
         // Init sprite sheets for carriage
         var leftCarriage = new Image();
-        leftCarriage.src = './Assets/img/horizCarriage-transparent.png';
+        leftCarriage.src = './public/assets/img/horizCarriage-transparent.png';
     
         var rightCarriage = new Image();
-        rightCarriage.src = './Assets/img/horizCarriageRt-transparent.png';
+        rightCarriage.src = './public/assets/img/horizCarriageRt-transparent.png';
     
         function sprite(options){
             var that = {},

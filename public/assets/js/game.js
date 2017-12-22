@@ -19,12 +19,15 @@ function updatePlayer() {
                 type: 'POST'
             }).then((data) => {
                 console.log('Added new player');
+
                 player = data;
                 displayPlayer(player);
+
             });
         } else {
 
             console.log('Found existing player');
+
             player = data;
             displayPlayer(player);
 
@@ -145,6 +148,7 @@ function buylogic(host) {
 
                 });
 
+
             } else {
                 alert('Not a valid transaction, player doesn\'t have enough space');
             }
@@ -214,6 +218,7 @@ function selllogic(host) {
 }
 
 
+
 //Begin live code and listeners
 $(document).ready(function () {
     // Determine player for current session
@@ -271,3 +276,4 @@ $(document).ready(function () {
     });
 
 });
+
