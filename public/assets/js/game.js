@@ -21,21 +21,17 @@ function getPlayer() {
                 type: 'POST'
             }).then( (data) => {
                 console.log('Added new player');
-                player=data;
-                console.log(player.gold);
+                console.log(data);
             });
         }
         else {
 
             console.log('Found existing player');
-            player=data;
-            console.log(player.gold);
+            console.log(data);
 
         }
 
 
-    });
+    })
 
-   
-
-};
+}
