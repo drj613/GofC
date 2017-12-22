@@ -7,11 +7,11 @@ textarea {
 }
 
 body {
-    font-size: 1em;
+    font-size: .875em;
     line-height: 1.4;
 }
 
-.clickable{
+.clickable {
     outline: none;
 }
 /*
@@ -20,6 +20,12 @@ body {
 
 img {
     vertical-align: middle;
+}
+
+.mod-image {
+	float: left;
+	width: 135px;
+	height: 180px;
 }
 
 #animTest {
