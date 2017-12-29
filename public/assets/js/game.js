@@ -306,6 +306,8 @@ $(document).ready(function () {
 
         // Set player cityid to new location and update player in db
         player.cityid = parseInt($(this).attr('data-cityid'));
+
+        console.log(player.cityid);
         sendPlayerUpdate(player);
 
 

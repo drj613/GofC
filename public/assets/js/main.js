@@ -2,7 +2,7 @@
 // 2) If/else of currentPos.x - destinationPos.x to decide which avatar to use
 // 3) incrementally change position of sprite until reaching destination (JQUERY .ANIMATE() move destPos.x - currPos.X, slow)
 // 4) set "choke points" on map, where canvas has to go to avoid jankiness going through bays and whatnot
-// 5) functions to skip and stop animation
+// 5) functions to skip and stop animations
 $(document).ready(function () {
 
 
@@ -14,7 +14,7 @@ $(document).ready(function () {
     var $theEyriePos = $("#theEyrie").attr('coords').split(',');
     var $harrenhalPos = $("#harrenhal").attr('coords').split(',');
     var $dragonstonePos = $("#dragonstone").attr('coords').split(',');
-    var $kingsLandingPos = $("#kingsLanding").attr('coords').split(',');
+    var $kingsLandingPos = [50,50];
     var $pentosPos = $("#pentos").attr('coords').split(',');
 
     // Init sprite sheets for carriage
@@ -107,7 +107,7 @@ $(document).ready(function () {
     var spriteToUse = hrzMoveLeft;
 
     function gameLoop() {
-        window.requestAnimationFrame(gameLoop);
+        // window.requestAnimationFrame(gameLoop);
 
         // Trigger movement of sprite
         $(".clickable").on("click", function () {
@@ -119,13 +119,26 @@ $(document).ready(function () {
 
         spriteToUse.update();
         spriteToUse.render(currentPosition.x, currentPosition.y);
+        var testdestination = [300,300];
+        setTimeout(function () {
+            console.log('Moved');
+            move(spriteToUse, testdestination, 'stuff');
+        }, 2000);
     }
 
-    leftCarriage.addEventListener('load', gameLoop);
+    setTimeout(gameLoop,2000);
+
+   
+
+    // setTimeout(function () {
+    //     console.log('Moved');
+    //     move(leftCarriage, testdestination, 'stuff');
+    // }, 2000);
 
     // Function to move sprite to a specific destination (input as an array of coordinates)
     function move(sprite, destination, modalId) {
         // Create ID string to use in jquery
+        
         var spriteId = "#" + spriteToUse.id;
         var xDiff = currentPosition.x - destination[0];
         var yDiff = currentPosition.y - destination[1];;
@@ -133,7 +146,8 @@ $(document).ready(function () {
             top: yDiff,
             left: xDiff
         }, 2000, function () {
-            $(modalId).modal("show");
+            // $(modalId).modal("show");
+            console.log('I moved');
         });
     }
 
