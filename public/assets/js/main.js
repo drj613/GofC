@@ -1,16 +1,7 @@
-// $(document).ready(function () {
-    
-//     // Prevent map area clicks from refreshing the page
-//     $('map[name=map] area').on('click',function(e){
-//         e.stopPropagation();
-//         return false;
-//     });
-
-    
-    
-
-    
-// });
+// 1) Add popup on city click that allows option to go or cancel (maybe see CURRENT price?)
+// 2) If/else of currentPos.x - destinationPos.x to decide which avatar to use
+// 3) incrementally change position of sprite until reaching destination (JQUERY .ANIMATE() move destPos.x - currPos.X, slow)
+// 4) set "choke points" on map, where canvas has to go to avoid jankiness going through bays and whatnot
 
 $(document).ready(function () {
     
@@ -28,11 +19,11 @@ $(document).ready(function () {
 
         // Init sprite sheets for carriage
         var leftCarriage = new Image();
-        leftCarriage.src = './public/assets/img/horizCarriage-transparent.png';
+        leftCarriage.src = './assets/img/horizCarriage-transparent.png';
     
         var rightCarriage = new Image();
-        rightCarriage.src = './public/assets/img/horizCarriageRt-transparent.png';
-    
+        rightCarriage.src = './assets/img/horizCarriageRt-transparent.png';
+    // Sprite constructor
         function sprite(options){
             var that = {},
                 frameIndex = 0,
@@ -65,7 +56,7 @@ $(document).ready(function () {
                 that.width / numberOfFrames,
                 that.height);
         };
-        // Updating sprite frame
+        // Updating sprite frames
         that.update = function () {
             tickCount++;
     
