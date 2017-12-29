@@ -1,10 +1,17 @@
 //Set username in background for testing purposes
 var playername = 'Chris';
 
-// Create empty global variable to hold player data
+// Empty global variable to hold player data
 var player;
 
-console.log('Game.js loaded');
+//  Empty global variables to hold clock interval and timecount 
+var clockid;
+
+//Do not confuse timecounter with player.timecount. Timecounter is measured in deciseconds (10 for each second)
+//player.timecount is measured in seconds and is how time will be reflected in and passed to the database
+//with each second in player.timecount = one week of in-game time.
+var timecounter = 0;
+
 
 // Get's most recent player data from db
 function updatePlayer() {
@@ -42,7 +49,7 @@ function updatePlayer() {
 
 function findtotal(playerdata) {
     return playerdata.grain + playerdata.fish + playerdata.cloth + playerdata.metal + playerdata.silk + playerdata.wood +
-        playerdata.weapons + playerdata.gems + playerdata.medicine + playerdata.poison + playerdata.dragon_glass;
+        playerdata.weapons + playerdata.gems + playerdata.medicine + playerdata.poison + playerdata.dragon_glass + playerdata.wine;
 }
 
 // Updates player display
@@ -53,12 +60,14 @@ function displayPlayer(playerdata) {
     $('#playerdata').text(playerdata.username);
     $('#golddata').text(playerdata.gold);
     $('#citydata').text(playerdata.cityid);
+    $('#timedata').text(calendar(playerdata.timecount));
     $('#currentdata').text(totalinventory);
     $('#maxdata').text(playerdata.max_space);
     $('#graindata').text(playerdata.grain);
     $('#fishdata').text(playerdata.fish);
     $('#clothdata').text(playerdata.cloth);
     $('#metaldata').text(playerdata.metal);
+    $('#winedata').text(playerdata.wine);
     $('#silkdata').text(playerdata.silk);
     $('#wooddata').text(playerdata.wood);
     $('#weaponsdata').text(playerdata.weapons);
@@ -83,7 +92,7 @@ function buildtransaction(type, host) {
         'class': 'transaction'
     });
     var $goodsmenu = $('<select>', {
-        id: type+'select'
+        id: type + 'select'
     });
 
     //Create list of goods dropdown from array of keys in player object
@@ -129,25 +138,13 @@ function buylogic(host) {
         if ((currentprice * currentquantity) < player.gold) {
 
             //Check player has enough space to complete transaction
-            if (player.max_space > findtotal(player) + currentquantity) {
+            if (player.max_space >= findtotal(player) + currentquantity) {
 
-                $.ajax('/goods/update', {
-                    method: 'PUT',
-                    data: {
-                        good: currentgood,
-                        inventory: player[currentgood], //Current inventory of specific good being purchased
-                        gold: player.gold,
-                        transaction: 'buy',
-                        player: player.username,
-                        quantity: currentquantity,
-                        price: currentprice
-                    }
-                }).then(function (data) {
-                    currentelement.remove();
-                    updatePlayer();
+                player.gold -= (currentprice * currentquantity);
+                player[currentgood] += currentquantity;
 
-                });
-
+                currentelement.remove();
+                sendPlayerUpdate(player);
 
             } else {
                 alert('Not a valid transaction, player doesn\'t have enough space');
@@ -183,33 +180,19 @@ function selllogic(host) {
         //Confirm player has enough good to sell
         if (player[currentgood] >= currentquantity) {
 
-            $.ajax('/goods/update', {
-                method: 'PUT',
-                data: {
-                    good: currentgood,
-                    inventory: player[currentgood], //Current inventory of specific good being purchased
-                    gold: player.gold,
-                    transaction: 'sell',
-                    player: player.username,
-                    quantity: currentquantity,
-                    price: currentprice
-                }
-            }).then(function (data) {
-                currentelement.remove();
-                updatePlayer();
+            player.gold += (currentprice * currentquantity);
+            player[currentgood] -= currentquantity;
 
-            });
+            currentelement.remove();
+            sendPlayerUpdate(player);
 
-        }
-
-        else {
+        } else {
             alert('Not a valid transaction, you don\'t have enough ' + currentgood + ' to sell.');
         }
 
-    
 
-    }
-    else { //Result of number checking logic
+
+    } else { //Result of number checking logic
         alert('Not a valid transaction, quantity must be a number above 0');
     }
 
@@ -217,12 +200,103 @@ function selllogic(host) {
 
 }
 
+function startClock() {
+
+    clockid = setInterval(timer, 100);
+
+}
+
+function timer() {
+    timecounter++;
+    if (timecounter === 10) {
+        //Update calendar every 10 cycles (1 second)
+        player.timecount++;
+        sendPlayerUpdate(player);
+        timecounter = 0;
+    }
+}
+
+function calendar(counter) {
+    // Add 298 to years count because game starts in 298 AC
+
+    console.log(counter);
+    var years = Math.floor((counter - 1) / 48) + 298;
+    counter -= ((years-298) * 48);
+
+    console.log(years + '*' + counter);
+    var months = Math.floor((counter - 1) / 4) + 1;
+    counter -= ((months-1) * 4);
+
+    console.log(months + '*' + counter);
+
+    var datestring = '';
+    switch (counter) {
+        case 1:
+            datestring += 'First';
+            break;
+
+        case 2:
+            datestring += 'Second';
+            break;
+
+        case 3:
+            datestring += 'Third';
+            break;
+
+        default:
+            datestring += 'Fourth';
+
+    }
+
+    datestring += ' Week of the ' + months;
+
+    switch (months) {
+        case 1:
+            datestring += 'st';
+            break;
+
+        case 2:
+            datestring += 'nd';
+            break;
+
+        case 3:
+            datestring += 'rd';
+            break;
+
+        default:
+            datestring += 'th';
+    }
+
+    datestring += ' Moon, ' + years + ' AC';
+
+    return datestring;
+}
+
+function stopClock() {
+    clearInterval(clockid);
+}
+
+function sendPlayerUpdate(player) {
+
+    console.log(player);
+
+    $.ajax('/player/update', {
+        method: 'PUT',
+        data: player
+    }).then((data) => {
+        updatePlayer();
+    });
+
+}
 
 
 //Begin live code and listeners
 $(document).ready(function () {
     // Determine player for current session
     updatePlayer();
+    startClock();
+
+    setTimeout(stopClock, 5000);
 
     // When user clicks on a map location
     $('.clickable').click(function () {
@@ -230,21 +304,13 @@ $(document).ready(function () {
         //Set element to be updated = to target of clickable map
         var currentelement = $(this).attr('data-target');
 
-        // Subtract one from id to get index because array starts from 0
-        var index = $(this).attr('data-cityid') - 1;
+        // Set player cityid to new location and update player in db
+        player.cityid = parseInt($(this).attr('data-cityid'));
+        sendPlayerUpdate(player);
 
-        //Update player location
-        $.ajax('/location/update', {
-            method: 'PUT',
-            data: {
-                player: player.username,
-                cityid: $(this).attr('data-cityid')
-            }
-        }).then((data) => {
-            updatePlayer();
-        });
 
         //Get prices for goods
+        index = player.cityid - 1;
         $.get('/priceupdate').then((data) => {
 
             var priceobject = data[index].prices;
@@ -276,4 +342,3 @@ $(document).ready(function () {
     });
 
 });
-
