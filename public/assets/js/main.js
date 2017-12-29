@@ -73,8 +73,8 @@ $(document).ready(function () {
     }
 
     var canvas = document.querySelector("#animTest");
-    canvas.width = 2452;
-    canvas.height = 3064;
+    canvas.width = $("#westeros").attr("width");
+    canvas.height = $("#westeros").attr("height");
 
     var hrzMoveLeft = sprite({
         context: canvas.getContext("2d"),
