@@ -20,59 +20,18 @@ router.get("/priceupdate", function (req, res) {
 
 });
 
-router.put('/location/update', function (req, res) {
+router.put('/player/update', function (req, res) {
 
-	db.Player.update({
-		cityid: req.body.cityid
-	}, {
+	db.Player.update(
+		req.body,
+		 {
 		where: {
-			username: req.body.player
+			username: req.body.username
 		}
 	}).then((data) => {
 
 		res.json(data);
 	});
-
-});
-
-router.put("/goods/update", function (req, res) {
-
-	//Set up variables from data passed from client to simplify code
-	var currentGood = req.body.good;
-	var currentQuantity = parseInt(req.body.inventory);
-	var currentGold = parseInt(req.body.gold);
-	var buysell = req.body.transaction;
-	var player = req.body.player;
-	var transactionQuantity = parseInt(req.body.quantity);
-	var price = parseInt(req.body.price);
-
-	// Set up update variables based on whether transaction is buy or sell
-	if (buysell === 'buy') {
-		var updatedQuantity = currentQuantity + transactionQuantity;
-		var updatedGold = currentGold - (transactionQuantity * price);
-
-	} else {
-		var updatedQuantity = currentQuantity - transactionQuantity;
-		var updatedGold = currentGold + (transactionQuantity * price);
-	}
-
-	//Update database 	
-	db.Player.update({
-			[currentGood]: updatedQuantity,
-			gold: updatedGold
-		}, {
-			where: {
-				username: player
-			}
-		}).then(function (data) {
-			res.json(data);
-		})
-		//Error handling
-		.catch(function (err) {
-
-			res.json(err);
-		});
-
 
 });
 

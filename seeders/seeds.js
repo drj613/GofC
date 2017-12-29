@@ -313,13 +313,30 @@ function seedModel2(db) {
     ]);
 }
 
+function seedModel3(db) {
+    return Promise.all([
+        db.Region.create({
+            description: 'The North'
+        }),
+        db.Region.create({
+            description: 'The South'
+        }),
+        db.Region.create({
+            description: 'Essos'
+        })
+
+    ]);
+}
+
 function seed(db) {
     
     //Run seed functions to populate db
+    console.log('Trying seeds');
     return Promise.all([
 
         seedModel1(db),
-        seedModel2(db)
+        seedModel2(db),
+        seedModel3(db)
 
     ]);
 }
