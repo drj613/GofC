@@ -120,23 +120,23 @@ module.exports = function (sequelize, DataTypes) {
     timestamps: false
   });
 
-  Cities.associate = function (models) {
-    Cities.belongsTo(models.Region, {
-      foreignkey: 'regionid',
-      targetKey: 'id'
-    });
+  // Cities.associate = function (models) {
+  //   Cities.belongsTo(models.Region, {
+  //     foreignkey: 'regionid',
+  //     targetKey: 'id'
+  //   });
     
-    console.log('Trying associate');
-    Cities.update({
-        RegionId: 1
-      }, {
-        where: {
-          id: [2,3]
-        }
-      });
+  //   console.log('Trying associate');
+  //   Cities.update({
+  //       RegionId: 1
+  //     }, {
+  //       where: {
+  //         id: [2,3]
+  //       }
+  //     });
 
     
-  };
+  // };
 
   return Cities;
 };
