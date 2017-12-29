@@ -42,7 +42,7 @@ $(document).ready(function () {
         // Sprite rendering
         that.render = function (x, y) {
             that.context.clearRect(x, y, that.width, that.height);
-            // context.drawImage(img, sourcex, sourcey, sourcewidth, sourceheight, destinationx, destinationy, destinationwidth, destinationheight)
+            context.drawImage(img, sourcex, sourcey, sourcewidth, sourceheight, destinationx, destinationy, destinationwidth, destinationheight)
             that.context.drawImage(
                 that.image,
                 frameIndex * that.width / numberOfFrames,
@@ -107,7 +107,7 @@ $(document).ready(function () {
     var spriteToUse = hrzMoveLeft;
 
     function gameLoop() {
-        // window.requestAnimationFrame(gameLoop);
+        window.requestAnimationFrame(gameLoop);
 
         // Trigger movement of sprite
         $(".clickable").on("click", function () {
@@ -119,21 +119,15 @@ $(document).ready(function () {
 
         spriteToUse.update();
         spriteToUse.render(currentPosition.x, currentPosition.y);
-        var testdestination = [300,300];
-        setTimeout(function () {
-            console.log('Moved');
-            move(spriteToUse, testdestination, 'stuff');
-        }, 2000);
+        
+       
     }
 
-    setTimeout(gameLoop,2000);
+    // setTimeout(gameLoop,2000);
 
    
 
-    // setTimeout(function () {
-    //     console.log('Moved');
-    //     move(leftCarriage, testdestination, 'stuff');
-    // }, 2000);
+    
 
     // Function to move sprite to a specific destination (input as an array of coordinates)
     function move(sprite, destination, modalId) {
