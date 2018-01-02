@@ -1,11 +1,11 @@
 // 1) Add popup on city click that allows option to go or cancel (maybe see CURRENT price?)
 // 2) If/else of currentPos.x - destinationPos.x to decide which avatar to use
-// 3) incrementally change position of sprite until reaching destination (JQUERY .ANIMATE() move destPos.x - currPos.X, slow)
+// 3) incrementally change position of sprite until reaching destination (JQUERY .ANIMATE() move destPos.x  currPos.X, slow)
 // 4) set "choke points" on map, where canvas has to go to avoid jankiness going through bays and whatnot
-// 5) functions to skip and stop animations
+// 5) functions to skip and stop animation
 $(document).ready(function () {
-
-
+    
+    
     //Coordinates for cities on areamap
     var $castleBlackPos = $("#castleBlack").attr('coords').split(',');
     var $winterfellPos = $("#winterfell").attr('coords').split(',');
@@ -14,8 +14,8 @@ $(document).ready(function () {
     var $theEyriePos = $("#theEyrie").attr('coords').split(',');
     var $harrenhalPos = $("#harrenhal").attr('coords').split(',');
     var $dragonstonePos = $("#dragonstone").attr('coords').split(',');
-    var $kingsLandingPos = [50,50];
-    var $pentosPos = $("#pentos").attr('coords').split(',');
+    var $kingsLandingPos = $("#kingsLanding").attr('coords').split(',');
+    var $pentosPos = $("#pentos").attr('coords').split(',');  
 
     // Init sprite sheets for carriage
     var leftCarriage = new Image();
@@ -26,52 +26,51 @@ $(document).ready(function () {
     rightCarriage.src = './Assets/img/horizCarriageRt-transparent.png';
     rightCarriage.id = 'rightCarriage';
 
-    function sprite(options) {
+    function sprite(options){
         var that = {},
             frameIndex = 0,
             tickCount = 0,
             ticksPerFrame = options.ticksPerFrame || 0;
-        numberOfFrames = options.numberOfFrames || 1;
-
+            numberOfFrames = options.numberOfFrames || 1;
+        
+        that.position = options.position;
         that.context = options.context;
         that.width = options.width;
         that.height = options.height;
         that.image = options.image;
         that.loop = options.loop;
 
-        // Sprite rendering
-        that.render = function (x, y) {
-            that.context.clearRect(x, y, that.width, that.height);
-            // context.drawImage(img, sourcex, sourcey, sourcewidth, sourceheight, destinationx, destinationy, destinationwidth, destinationheight)
-            that.context.drawImage(
-                that.image,
-                frameIndex * that.width / numberOfFrames,
-                0,
-                that.width / numberOfFrames,
-                that.height,
-                x,
-                y,
-                that.width / numberOfFrames,
-                that.height);
-        };
-        // Updating sprite frame
-        that.update = function () {
-            tickCount++;
+    // Sprite rendering
+    that.render = function (x, y) {
+        that.context.clearRect(x, y, that.width, that.height);
+        // context.drawImage(img, sourcex, sourcey, sourcewidth, sourceheight, destinationx, destinationy, destinationwidth, destinationheight)
+        that.context.drawImage(
+            that.image,
+            frameIndex * that.width / numberOfFrames,
+            0,
+            that.width / numberOfFrames,
+            that.height,
+            x,
+            y,
+            that.width / numberOfFrames,
+            that.height);
+    };
+    // Updating sprite frame
+    that.update = function () {
+        tickCount++;
 
-            if (tickCount > ticksPerFrame) {
-                tickCount = 0;
+        if(tickCount > ticksPerFrame) {
+            tickCount = 0;
 
-                if (frameIndex < numberOfFrames - 1) {
-                    frameIndex++;
-                } else if (that.loop) {
-                    frameIndex = 0;
-                }
+            if (frameIndex < numberOfFrames - 1) {
+                frameIndex++;
+            } else if (that.loop) {
+                frameIndex = 0;
             }
         }
-
-        return that;
     }
 
+<<<<<<< HEAD
     var canvas = document.querySelector("#animTest");
     canvas.width = $("#westeros").attr("width");
     canvas.height = $("#westeros").attr("height");
@@ -108,52 +107,76 @@ $(document).ready(function () {
 
     function gameLoop() {
         // window.requestAnimationFrame(gameLoop);
+=======
+    return that;
+}
 
-        // Trigger movement of sprite
-        $(".clickable").on("click", function () {
-            var destination = $(this).attr("coords").split(",");
-            var modalId = "#" + $(this).attr("id") + "modal";
+var canvas = document.getElementById("animTest");
+var ctx = canvas.getContext("2d");
+canvas.width = 2452;
+canvas.height = 3064;
 
-            setInterval(move(spriteToUse, destination, modalId), 50);
-        });
+var hrzMoveLeft = sprite({
+    context: canvas.getContext("2d"),
+    width: 920,
+    height: 90,
+    image: leftCarriage,
+    numberOfFrames: 5,
+    ticksPerFrame: 10,
+    initial: true,
+    position: currentPosition,
+    loop: true
+});
 
-        spriteToUse.update();
-        spriteToUse.render(currentPosition.x, currentPosition.y);
-        var testdestination = [300,300];
-        setTimeout(function () {
-            console.log('Moved');
-            move(spriteToUse, testdestination, 'stuff');
-        }, 2000);
-    }
-
-    setTimeout(gameLoop,2000);
-
-   
-
-    // setTimeout(function () {
-    //     console.log('Moved');
-    //     move(leftCarriage, testdestination, 'stuff');
-    // }, 2000);
-
-    // Function to move sprite to a specific destination (input as an array of coordinates)
-    function move(sprite, destination, modalId) {
-        // Create ID string to use in jquery
+var hrzMoveRight = sprite({
+    context: canvas.getContext("2d"),
+    width: 920,
+    height: 90,
+    image: rightCarriage,
+    numberOfFrames: 5,
+    ticksPerFrame: 10,
+    position: currentPosition,
+    loop: true
+});
         
-        var spriteId = "#" + spriteToUse.id;
-        var xDiff = currentPosition.x - destination[0];
-        var yDiff = currentPosition.y - destination[1];;
-        $(spriteId).animate({
-            top: yDiff,
-            left: xDiff
-        }, 2000, function () {
-            // $(modalId).modal("show");
-            console.log('I moved');
-        });
+var currentPosition = {
+    x: $castleBlackPos[0],
+    y: $castleBlackPos[1]
+};
+>>>>>>> chris-game-code
+
+var spriteToUse = hrzMoveLeft;
+
+function gameLoop(){
+    window.requestAnimationFrame(gameLoop);
+
+    spriteToUse.update();
+    spriteToUse.render(currentPosition.x, currentPosition.y);
     }
 
 
+leftCarriage.addEventListener('load', gameLoop);
 
 
+// Trigger movement of sprite
+$(".clickable").on("click", function(){
+    var clickedPos = $(this).attr("coords").split(",");
+    
+
+    if (currentPosition.x - clickedPos[0] > 0){
+        spriteToUse = hrzMoveLeft;
+    } else {
+        spriteToUse = hrzMoveRight;
+    } 
+    ctx.clearRect(currentPosition.x, currentPosition.y, 184, 90);
+    currentPosition.x = clickedPos[0];
+    currentPosition.y = clickedPos[1];
+
+
+    var modalId = "#"+$(this).attr("id")+"modal";
+
+    
+});
 
 
 });

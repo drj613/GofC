@@ -25,15 +25,13 @@ function updatePlayer() {
             $.ajax('/player/' + playername, {
                 type: 'POST'
             }).then((data) => {
-                console.log('Added new player');
+                
 
                 player = data;
                 displayPlayer(player);
 
             });
         } else {
-
-            console.log('Found existing player');
 
             player = data;
             displayPlayer(player);
@@ -82,7 +80,7 @@ function displayPlayer(playerdata) {
 // Builds HTML form for buy and sell transactions
 function buildtransaction(type, host) {
 
-    console.log('running');
+    
 
     //Assign parent modal to a variable to allow for usage in ajax call
     var currentelement = $(host).parents('.modal');
@@ -165,8 +163,7 @@ function selllogic(host) {
     var currentelement = $(host).parents('.transaction');
     var currentgood = currentelement.find('#sellselect').val();
     var currentquantity = currentelement.find('#quantity').val();
-    console.log(currentelement);
-    console.log($(currentelement));
+    
 
     // Validate transaction
     //Confirm quantity is a positive number
@@ -219,15 +216,13 @@ function timer() {
 function calendar(counter) {
     // Add 298 to years count because game starts in 298 AC
 
-    console.log(counter);
+    
     var years = Math.floor((counter - 1) / 48) + 298;
     counter -= ((years-298) * 48);
 
-    console.log(years + '*' + counter);
+  
     var months = Math.floor((counter - 1) / 4) + 1;
     counter -= ((months-1) * 4);
-
-    console.log(months + '*' + counter);
 
     var datestring = '';
     switch (counter) {
@@ -278,7 +273,7 @@ function stopClock() {
 
 function sendPlayerUpdate(player) {
 
-    console.log(player);
+    
 
     $.ajax('/player/update', {
         method: 'PUT',
@@ -307,7 +302,7 @@ $(document).ready(function () {
         // Set player cityid to new location and update player in db
         player.cityid = parseInt($(this).attr('data-cityid'));
 
-        console.log(player.cityid);
+        
         sendPlayerUpdate(player);
 
 
