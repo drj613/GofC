@@ -29,7 +29,7 @@ img {
 }
 
 #animTest {
-     background-image: url("../img/tradeMap.jpg") 
+    /* background-image: url("../img/newtradeMap.jpg"); */
     position: absolute;
     top: 0;
     left: 0;
