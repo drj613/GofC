@@ -21,35 +21,37 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
         crossorigin="anonymous"></script>
     <script src="assets/js/helper.js"></script>
-    <script src="assets/js/main.js"></script>
-    <!-- <script src="assets/js/animation.js"></script> -->
+    <!-- <script src="assets/js/main.js"></script> -->
+    <script src="assets/js/animation.js"></script>
     <script src='assets/js/game.js'></script>
 </head>
 
 <body>
     <div class="site">
-        <img src="./assets/img/newtradeMap.jpg" width="1560" height="3062" alt="" usemap="#map">
-        <canvas id="animTest" style="width:100%; height:100%;"></canvas>
+        <img src="./assets/img/newtradeMap.jpg" width="100%" alt="" usemap="#map">
         <!-- Clickable area modal -->
+        
         <map name="map" id="map">
-            <area class="clickable" id="castleBlack" shape="rect" coords="887, 238, 1006, 286" href="" alt="Castle Black" title="Castle Black"
+            <!-- All coords listed based on original 1560 px width map, recalculated on page creation -->
+            <area class="clickable" id="castleBlack" shape="rect" data-coords="887, 238, 1006, 286" href="" alt="Castle Black" title="Castle Black"
                 data-reveal-id="castle-black" data-toggle="modal" data-target="#castleBlackModal" data-cityid='2'>
-            <area class="clickable" id="winterfell" shape="rect" coords="670, 718, 766, 789" href="" alt="Winterfell" title="Winterfell"
+            <area class="clickable" id="winterfell" shape="rect" data-coords="670, 718, 766, 789" href="" alt="Winterfell" title="Winterfell"
                 data-reveal-id="winterfell" data-toggle="modal" data-target="#winterfellModal" data-cityid='3'>
-            <area class="clickable" id="theTwins" shape="rect" coords="599, 1438, 718, 1486" href="" alt="The Twins" title="The Twins"
+            <area class="clickable" id="theTwins" shape="rect" data-coords="599, 1438, 718, 1486" href="" alt="The Twins" title="The Twins"
                 data-reveal-id="the-twins" data-toggle="modal" data-target="#theTwinsModal" data-cityid='4'>
-            <area class="clickable" id="pyke" shape="rect" coords="190, 1582, 309, 1655" href="" alt="Pyke" title="Pyke" data-reveal-id="pyke"
+            <area class="clickable" id="pyke" shape="rect" data-coords="190, 1582, 309, 1655" href="" alt="Pyke" title="Pyke" data-reveal-id="pyke"
                 data-toggle="modal" data-target="#pykeModal" data-cityid='5'>
-            <area class="clickable" id="theEyrie" shape="rect" coords="1056, 1536, 1150, 1632" href="" alt="The Eyrie" title="The Eyrie"
+            <area class="clickable" id="theEyrie" shape="rect" data-coords="1056, 1536, 1150, 1632" href="" alt="The Eyrie" title="The Eyrie"
                 data-reveal-id="the-eyrie" data-toggle="modal" data-target="#eyrieModal" data-cityid='6'>
-            <area class="clickable" id="harrenhal" shape="rect" coords="791, 1751, 910, 1845" href="" alt="Harrenhal" title="Harrenhal"
+            <area class="clickable" id="harrenhal" shape="rect" data-coords="791, 1751, 910, 1845" href="" alt="Harrenhal" title="Harrenhal"
                 data-reveal-id="harrenhal" data-toggle="modal" data-target="#harrenhalModal" data-cityid='8'>
-            <area class="clickable" id="dragonstone" shape="rect" coords="1245, 1870, 1367, 1966" href="" alt="Dragonstone" title="Dragonstone"
+            <area class="clickable" id="dragonstone" shape="rect" data-coords="1245, 1870, 1367, 1966" href="" alt="Dragonstone" title="Dragonstone"
                 data-reveal-id="dragonstone" data-toggle="modal" data-target="#dragonstoneModal" data-cityid='9'>
-            <area class="clickable" id="kingsLanding" shape="rect" coords="1006, 2014, 1125, 2087" href="" alt="King\'s Landing" title="King\'s Landing"
+            <area class="clickable" id="kingsLanding" shape="rect" data-coords="1006, 2014, 1125, 2087" href="" alt="King\'s Landing" title="King\'s Landing"
                 data-reveal-id="kings-landing" data-toggle="modal" data-target="#kingsLandingModal" data-cityid='1'>
-            <area class="clickable" id="pentos" shape="rect" coords="1702, 2037, 1774, 2110" href="" alt="Pentos" title="Pentos" data-reveal-id="pentos"
+            <area class="clickable" id="pentos" shape="rect" data-coords="1702, 2037, 1774, 2110" href="" alt="Pentos" title="Pentos" data-reveal-id="pentos"
                 data-toggle="modal" data-target="#pentosModal" data-cityid='7'>
+            <img src='./assets/img/horses-left-still.png' id='carriage' alt=''>
         </map>
         <!-- Modal -->
         <div class="modal fade" id="castleBlackModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

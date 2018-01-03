@@ -23,3 +23,7 @@ The game ends when...
 Play to find out:
 
 (heroku link)
+
+Google Doc
+
+https://docs.google.com/document/d/1AIVdzNZOkH2l56dLcXLELb74SCg7dhV52EJCIAW0S-8/edit

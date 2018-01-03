@@ -4,8 +4,8 @@
 // 4) set "choke points" on map, where canvas has to go to avoid jankiness going through bays and whatnot
 // 5) functions to skip and stop animation
 $(document).ready(function () {
-    
-    
+
+
     //Coordinates for cities on areamap
     var $castleBlackPos = $("#castleBlack").attr('coords').split(',');
     var $winterfellPos = $("#winterfell").attr('coords').split(',');
@@ -15,7 +15,7 @@ $(document).ready(function () {
     var $harrenhalPos = $("#harrenhal").attr('coords').split(',');
     var $dragonstonePos = $("#dragonstone").attr('coords').split(',');
     var $kingsLandingPos = $("#kingsLanding").attr('coords').split(',');
-    var $pentosPos = $("#pentos").attr('coords').split(',');  
+    var $pentosPos = $("#pentos").attr('coords').split(',');
 
     // Init sprite sheets for carriage
     var leftCarriage = new Image();
@@ -26,13 +26,13 @@ $(document).ready(function () {
     rightCarriage.src = './Assets/img/horizCarriageRt-transparent.png';
     rightCarriage.id = 'rightCarriage';
 
-    function sprite(options){
+    function sprite(options) {
         var that = {},
             frameIndex = 0,
             tickCount = 0,
             ticksPerFrame = options.ticksPerFrame || 0;
-            numberOfFrames = options.numberOfFrames || 1;
-        
+        numberOfFrames = options.numberOfFrames || 1;
+
         that.position = options.position;
         that.context = options.context;
         that.width = options.width;
@@ -40,143 +40,98 @@ $(document).ready(function () {
         that.image = options.image;
         that.loop = options.loop;
 
-    // Sprite rendering
-    that.render = function (x, y) {
-        that.context.clearRect(x, y, that.width, that.height);
-        // context.drawImage(img, sourcex, sourcey, sourcewidth, sourceheight, destinationx, destinationy, destinationwidth, destinationheight)
-        that.context.drawImage(
-            that.image,
-            frameIndex * that.width / numberOfFrames,
-            0,
-            that.width / numberOfFrames,
-            that.height,
-            x,
-            y,
-            that.width / numberOfFrames,
-            that.height);
-    };
-    // Updating sprite frame
-    that.update = function () {
-        tickCount++;
+        // Sprite rendering
+        that.render = function (x, y) {
+            that.context.clearRect(x, y, that.width, that.height);
+            // context.drawImage(img, sourcex, sourcey, sourcewidth, sourceheight, destinationx, destinationy, destinationwidth, destinationheight)
+            that.context.drawImage(
+                that.image,
+                frameIndex * that.width / numberOfFrames,
+                0,
+                that.width / numberOfFrames,
+                that.height,
+                x,
+                y,
+                that.width / numberOfFrames,
+                that.height);
+        };
+        // Updating sprite frame
+        that.update = function () {
+            tickCount++;
 
-        if(tickCount > ticksPerFrame) {
-            tickCount = 0;
+            if (tickCount > ticksPerFrame) {
+                tickCount = 0;
 
-            if (frameIndex < numberOfFrames - 1) {
-                frameIndex++;
-            } else if (that.loop) {
-                frameIndex = 0;
+                if (frameIndex < numberOfFrames - 1) {
+                    frameIndex++;
+                } else if (that.loop) {
+                    frameIndex = 0;
+                }
             }
+        };
+    }
+
+        var hrzMoveLeft = sprite({
+            context: canvas.getContext("2d"),
+            width: 920,
+            height: 90,
+            image: leftCarriage,
+            numberOfFrames: 5,
+            ticksPerFrame: 10,
+            initial: true,
+            loop: true
+        });
+
+        var hrzMoveRight = sprite({
+            context: canvas.getContext("2d"),
+            width: 920,
+            height: 90,
+            image: rightCarriage,
+            numberOfFrames: 5,
+            ticksPerFrame: 10,
+            loop: true
+        });
+
+        var canvas = document.getElementById("animTest");
+
+        var currentPosition = {
+            x: $kingsLandingPos[0],
+            y: $kingsLandingPos[1]
+        };
+
+        var spriteToUse = hrzMoveLeft;
+
+
+
+        function gameLoop() {
+            window.requestAnimationFrame(gameLoop);
+
+            spriteToUse.update();
+            spriteToUse.render(currentPosition.x, currentPosition.y);
         }
-    }
 
-<<<<<<< HEAD
-    var canvas = document.querySelector("#animTest");
-    canvas.width = $("#westeros").attr("width");
-    canvas.height = $("#westeros").attr("height");
 
-    var hrzMoveLeft = sprite({
-        context: canvas.getContext("2d"),
-        width: 920,
-        height: 90,
-        image: leftCarriage,
-        numberOfFrames: 5,
-        ticksPerFrame: 10,
-        initial: true,
-        loop: true
+        leftCarriage.addEventListener('load', gameLoop);
+
+
+        // Trigger movement of sprite
+        $(".clickable").on("click", function () {
+            var clickedPos = $(this).attr("coords").split(",");
+
+
+            if (currentPosition.x - clickedPos[0] > 0) {
+                spriteToUse = hrzMoveLeft;
+            } else {
+                spriteToUse = hrzMoveRight;
+            }
+            ctx.clearRect(currentPosition.x, currentPosition.y, 184, 90);
+            currentPosition.x = clickedPos[0];
+            currentPosition.y = clickedPos[1];
+
+
+            var modalId = "#" + $(this).attr("id") + "modal";
+
+
+        });
+
     });
-
-    var hrzMoveRight = sprite({
-        context: canvas.getContext("2d"),
-        width: 920,
-        height: 90,
-        image: rightCarriage,
-        numberOfFrames: 5,
-        ticksPerFrame: 10,
-        loop: true
-    });
-
-    var canvas = document.getElementById("animTest");
-
-    var currentPosition = {
-        x: $kingsLandingPos[0],
-        y: $kingsLandingPos[1]
-    };
-
-    var spriteToUse = hrzMoveLeft;
-
-    function gameLoop() {
-        // window.requestAnimationFrame(gameLoop);
-=======
-    return that;
-}
-
-var canvas = document.getElementById("animTest");
-var ctx = canvas.getContext("2d");
-canvas.width = 2452;
-canvas.height = 3064;
-
-var hrzMoveLeft = sprite({
-    context: canvas.getContext("2d"),
-    width: 920,
-    height: 90,
-    image: leftCarriage,
-    numberOfFrames: 5,
-    ticksPerFrame: 10,
-    initial: true,
-    position: currentPosition,
-    loop: true
-});
-
-var hrzMoveRight = sprite({
-    context: canvas.getContext("2d"),
-    width: 920,
-    height: 90,
-    image: rightCarriage,
-    numberOfFrames: 5,
-    ticksPerFrame: 10,
-    position: currentPosition,
-    loop: true
-});
-        
-var currentPosition = {
-    x: $castleBlackPos[0],
-    y: $castleBlackPos[1]
-};
->>>>>>> chris-game-code
-
-var spriteToUse = hrzMoveLeft;
-
-function gameLoop(){
-    window.requestAnimationFrame(gameLoop);
-
-    spriteToUse.update();
-    spriteToUse.render(currentPosition.x, currentPosition.y);
-    }
-
-
-leftCarriage.addEventListener('load', gameLoop);
-
-
-// Trigger movement of sprite
-$(".clickable").on("click", function(){
-    var clickedPos = $(this).attr("coords").split(",");
-    
-
-    if (currentPosition.x - clickedPos[0] > 0){
-        spriteToUse = hrzMoveLeft;
-    } else {
-        spriteToUse = hrzMoveRight;
-    } 
-    ctx.clearRect(currentPosition.x, currentPosition.y, 184, 90);
-    currentPosition.x = clickedPos[0];
-    currentPosition.y = clickedPos[1];
-
-
-    var modalId = "#"+$(this).attr("id")+"modal";
-
-    
-});
-
-
-});

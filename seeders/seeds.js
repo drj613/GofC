@@ -322,9 +322,24 @@ function seedModel3(db) {
             description: 'The South'
         }),
         db.Region.create({
-            description: 'Essos'
+            description: 'The Middle'
         })
 
+    ]);
+}
+
+function seedModel4(db) {
+    return Promise.all([
+        db.Events.create({
+            title: 'White Walkers spotted!',
+            description: 'There are reports of frozen undead monsters with blue eyes. Lord Commander of the Night\'s Watch orders all bodies must be burned. Wood prices in the North skyrocket.',
+            region: 1,
+            goodaffected: 'wood',
+            eventeffect: 1,
+            timecountstart: 36,
+            timecountend: 60
+
+        })
     ]);
 }
 
@@ -336,7 +351,8 @@ function seed(db) {
 
         seedModel1(db),
         seedModel2(db),
-        seedModel3(db)
+        seedModel3(db),
+        // seedModel4(db)
 
     ]);
 }
