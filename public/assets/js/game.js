@@ -35,6 +35,7 @@ function updatePlayer() {
 
             player = data;
             displayPlayer(player);
+            placeplayer(player);
 
         }
 
@@ -304,9 +305,8 @@ function upgradetransaction(host) {
 $(document).ready(function () {
     // Determine player for current session
     updatePlayer();
-    startClock();
-
-    setTimeout(stopClock, 5000);
+    
+    
 
     // When user clicks on a map location
     $('.clickable').click(function () {
@@ -319,6 +319,8 @@ $(document).ready(function () {
 
         
         sendPlayerUpdate(player);
+        movecarriage($(this));
+        
 
 
         //Get prices for goods
