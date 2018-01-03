@@ -4,11 +4,13 @@ input,
 select,
 textarea {
     color: #222;
+    font-family:'EB Garamond', serif; 
 }
 
 body {
     font-size: .875em;
     line-height: 1.4;
+    font-family:'EB Garamond', serif;
 }
 
 .clickable {
@@ -78,20 +80,18 @@ a:hover {
     /* Style adjustments for viewports that meet the condition */
 }
 
-
-
-
-
-/* Chris' test div styling */
+/* INVENTORY BOX STYLING */
 
 #gamebox {
-    background: lightblue;
+    background: rgb(165, 176, 180);
     position: fixed;
     top: 25px;
     left: 25px;
     z-index: 3;
     font-size: 12;
     line-height: 0.5;
+    font-family: 'EB Garamond', serif;
+    padding: 10px;
 }
 
 span {
@@ -113,8 +113,6 @@ span {
     z-index: 2;
     height: 50px;
     
+    
 }
-
-
-
 
