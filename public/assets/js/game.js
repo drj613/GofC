@@ -284,6 +284,21 @@ function sendPlayerUpdate(player) {
 
 }
 
+function upgradetransaction(host) {
+    var currentelement = $(host).parents('.modal-footer');
+
+    //Build new form to upgrade
+    var $transactionform = $('<div/>', {
+        'class': 'upgrade'
+    });
+
+    
+
+    
+
+    
+}
+
 
 //Begin live code and listeners
 $(document).ready(function () {
@@ -338,4 +353,8 @@ $(document).ready(function () {
         selllogic(this);
     });
 
-});
+    $(document).on('click', '.upgrade', function() {
+        upgradetransaction(this);
+    })
+
+ });
