@@ -1,22 +1,22 @@
 console.log('animation.js loaded');
 
-$(document).ready(function () {
-    
-   console.log($(document).width());
-   console.log($(document).height());
+//Run once code
 
-   coordrecalc();
-   
+$(document).one('ready', function() {
+
+    coordrecalc();
+
 });
+   
+   
+
 
 $(window).resize(function() {
     
     coordrecalc();
 
 
-    
-
-    
+       
 });
 
 function coordrecalc () {
@@ -63,6 +63,8 @@ function movecarriage(destination) {
         left: parseInt(coords[0]*ratio),
         top: parseInt(coords[1]*ratio)
     });
+
+    
 }
 
 function placeplayer(player) {
@@ -78,7 +80,7 @@ function placeplayer(player) {
     $carriage.css({
         top: parseInt(destination[1]*ratio),
         left: parseInt(destination[0]*ratio)
-    })
+    });
 
 
 
