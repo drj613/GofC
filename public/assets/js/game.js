@@ -299,6 +299,18 @@ function upgradetransaction(host) {
 
 }
 
+function route(destination,player) {
+
+    var start = $('area[data-cityid=\'' + player.cityid + '\']').attr('data-carriage').split(',');
+    
+    var end = destination.attr('data-carriage').split(',');
+
+    //Calculate distance between two points using Pythagorean theorum
+    var distance = Math.sqrt(Math.pow(parseInt(start[0]) - parseInt(end[0]),2) + Math.pow(parseInt(start[1]) - parseInt(end[1]),2));
+
+    return distance;
+}
+
 
 // Run once for debug
 $(document).one('ready', function () {
@@ -324,15 +336,14 @@ $(document).ready(function () {
         var targetmodal = '#'+ $(this).context.id + 'Modal';
 
         console.log(targetmodal);
+        var distance = route($(this), player);
 
-        movecarriage(currentelement);
+        startClock();
+        movecarriage(currentelement, distance);
 
         $('#carriage').promise().done(function () {
 
-            console.log('This worked');
-
-
-
+            stopClock();
             // Set player cityid to new location and update player in db
             player.cityid = parseInt(currentelement.attr('data-cityid'));
 
