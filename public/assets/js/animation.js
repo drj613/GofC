@@ -51,17 +51,21 @@ function coordrecalc () {
 
 }
 
-function movecarriage(destination) {
+function movecarriage(destination, distance) {
     var $carriage = $('#carriage');
     var ratio = $(document).width() / 1560;
 
+    $carriage.attr('src','./assets/img/horses-left.gif');
+
     var coords = $(destination).attr('data-carriage').split(',');
 
-    
+    console.log(distance);
 
     $carriage.animate({
         left: parseInt(coords[0]*ratio),
         top: parseInt(coords[1]*ratio)
+    }, distance*10, function() {
+        $carriage.attr('src','./assets/img/horses-left-still.png');
     });
 
     
