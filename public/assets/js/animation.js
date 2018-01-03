@@ -55,6 +55,9 @@ function movecarriage(destination, distance,timefactor) {
     var $carriage = $('#carriage');
     var ratio = $(document).width() / 1560;
 
+    console.log($(document).width());
+    console.log('Move Ratio: ' + ratio);
+
     var leftorigin = parseInt($carriage.css('left').substr(0,$carriage.css('left').length-2));
 
     // Time adjustment variable, designed for travel from The Wall to Winterfell to take three weeks of in game time
@@ -66,6 +69,8 @@ function movecarriage(destination, distance,timefactor) {
 
 
     var coords = $(destination).attr('data-carriage').split(',');
+
+    console.log(coords);
 
     if (leftorigin > parseInt(coords[0]*ratio)) {
         $carriage.attr('src','./assets/img/horses-left.gif');
@@ -100,12 +105,20 @@ function placeplayer(player) {
 
     var destination = $('area[data-cityid=\'' + player.cityid + '\']').attr('data-carriage').split(',');
 
-   
     console.log(destination);
 
+   
+    var placex = parseInt(destination[0]) * ratio;
+    var placey = parseInt(destination[1]) * ratio;
+    console.log($(document).width());
+    console.log('Place Ratio: ' + ratio)
+
+    console.log('Place X: ' + placex);
+
+    console.log('Place Y: ' + placey);
     $carriage.css({
-        top: parseInt(destination[1]*ratio),
-        left: parseInt(destination[0]*ratio)
+        top: placey,
+        left: placex
     });
 
 
