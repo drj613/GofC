@@ -1,22 +1,22 @@
 console.log('animation.js loaded');
 
-$(document).ready(function () {
-    
-   console.log($(document).width());
-   console.log($(document).height());
+//Run once code
 
-   coordrecalc();
-   
+$(document).one('ready', function() {
+
+    coordrecalc();
+
 });
+   
+   
+
 
 $(window).resize(function() {
     
     coordrecalc();
 
 
-    
-
-    
+       
 });
 
 function coordrecalc () {
@@ -51,18 +51,24 @@ function coordrecalc () {
 
 }
 
-function movecarriage(destination) {
+function movecarriage(destination, distance) {
     var $carriage = $('#carriage');
     var ratio = $(document).width() / 1560;
 
+    $carriage.attr('src','./assets/img/horses-left.gif');
+
     var coords = $(destination).attr('data-carriage').split(',');
 
-    
+    console.log(distance);
 
     $carriage.animate({
         left: parseInt(coords[0]*ratio),
         top: parseInt(coords[1]*ratio)
+    }, distance*10, function() {
+        $carriage.attr('src','./assets/img/horses-left-still.png');
     });
+
+    
 }
 
 function placeplayer(player) {
@@ -78,7 +84,7 @@ function placeplayer(player) {
     $carriage.css({
         top: parseInt(destination[1]*ratio),
         left: parseInt(destination[0]*ratio)
-    })
+    });
 
 
 
