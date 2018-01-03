@@ -30,7 +30,7 @@
     <div class="site">
         <div id='mapcontainer'>
 
-            <img src="./assets/img/newtradeMap.jpg" id='mapimage' width="100%" alt="" usemap="#map">
+            <img src="./assets/img/newtradeMap2.jpg" id='mapimage' width="100%" alt="" usemap="#map">
 
             <!-- Carriage image -->
             <img src='./assets/img/horses-left-still.png' id='carriage' alt='' data-height='50' data-facing='left'>
@@ -47,9 +47,11 @@
                 <area class="clickable" id="pyke" shape="rect" data-coords="190, 1582, 309, 1655" href="" alt="Pyke" title="Pyke" data-reveal-id="pyke"
                     data-toggle="modal" data-cityid='5' data-carriage='310,1650'>
                 <area class="clickable" id="theEyrie" shape="rect" data-coords="1056, 1536, 1150, 1632" href="" alt="The Eyrie" title="The Eyrie"
-                    data-reveal-id="the-eyrie" data-toggle="modal" data-cityid='6' data-carriage='960,1610'>
-                <area class="clickable" id="harrenhal" shape="rect" data-coords="791, 1751, 910, 1845" href="" alt="Harrenhal" title="Harrenhal"
-                    data-reveal-id="harrenhal" data-toggle="modal" data-cityid='8' data-carriage='845,1725'>
+
+                    data-reveal-id="the-eyrie" data-toggle="modal" data-target="#eyrieModal" data-cityid='6' data-carriage='960,1610'>
+                <area class="clickable" id="riverrun" shape="rect" data-coords="588, 1692, 707, 1781" href="" alt="Riverrun" title="Riverrun"
+                    data-reveal-id="riverrun" data-toggle="modal" data-target="#riverrunModal" data-cityid='8' data-carriage='845,1725'>
+
                 <area class="clickable" id="dragonstone" shape="rect" data-coords="1245, 1870, 1367, 1966" href="" alt="Dragonstone" title="Dragonstone"
                     data-reveal-id="dragonstone" data-toggle="modal" data-cityid='9' data-carriage='1200,1840'>
                 <area class="clickable" id="kingsLanding" shape="rect" data-coords="1006, 2014, 1125, 2087" href="" alt="King\'s Landing"
@@ -415,11 +417,11 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="harrenhalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="riverrunModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Welcome to Harrenhal!</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Welcome to Riverrun!</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -427,15 +429,18 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-4">
-                                <img src="./assets/img/Harrenhal.png" class="mod-image">
+                                <img src="./assets/img/House-Tully-Riverrun.png" class="mod-image">
                             </div>
-                            <div class="col-8">Harrenhal is a huge castle, the largest one in all of Westeros, though it is also the most ill-omened.
-                                It is located on the northern shore of the Gods Eye lake at the heart of the Riverlands,
-                                south of the River Trident and northwest of King's Landing. It is not home to any house.
+                            <div class="col-8"> Riverrun is a large castle located in the central-western part of the Riverlands. It sits at the point
+                                where the Red Fork of the Trident River is joined by its major tributary, the Tumblestone
+                                River flowing out of the west. In times of danger, sluice gates can be opened to flood a
+                                channel cut to the west of the castle, turning Riverrun into an island. Its walls rise sheer
+                                from the waters and its towers command the opposite shores, making assaulting it almost impossible
+                                without huge casualties.
                             </div>
                         </div>
                     </div>
-                    <div class="buy-goods">Buy Goods in Harrenhal
+                    <div class="buy-goods">Buy Goods in Riverrun
                         <ul>
                             <li>Grain:
                                 <span class='grainprice'></span>
@@ -567,7 +572,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-4">
-                                <img src="./assets/img/House-Lannister-Main-Shield-Kings-Landing.png" class="mod-image">
+                                <img src="./assets/img/House-Baratheon.png" class="mod-image">
                             </div>
                             <div class="col-8">King's Landing is the capital, and largest city, of the Seven Kingdoms. Located on the east coast
                                 of Westeros in the Crownlands, just north of where the Blackwater Rush flows into Blackwater
