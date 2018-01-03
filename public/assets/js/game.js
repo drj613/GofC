@@ -25,7 +25,7 @@ function updatePlayer() {
             $.ajax('/player/' + playername, {
                 type: 'POST'
             }).then((data) => {
-                
+
 
                 player = data;
                 displayPlayer(player);
@@ -35,7 +35,6 @@ function updatePlayer() {
 
             player = data;
             displayPlayer(player);
-            placeplayer(player);
 
         }
 
@@ -81,7 +80,7 @@ function displayPlayer(playerdata) {
 // Builds HTML form for buy and sell transactions
 function buildtransaction(type, host) {
 
-    
+
 
     //Assign parent modal to a variable to allow for usage in ajax call
     var currentelement = $(host).parents('.modal');
@@ -164,7 +163,7 @@ function selllogic(host) {
     var currentelement = $(host).parents('.transaction');
     var currentgood = currentelement.find('#sellselect').val();
     var currentquantity = currentelement.find('#quantity').val();
-    
+
 
     // Validate transaction
     //Confirm quantity is a positive number
@@ -217,13 +216,13 @@ function timer() {
 function calendar(counter) {
     // Add 298 to years count because game starts in 298 AC
 
-    
-    var years = Math.floor((counter - 1) / 48) + 298;
-    counter -= ((years-298) * 48);
 
-  
+    var years = Math.floor((counter - 1) / 48) + 298;
+    counter -= ((years - 298) * 48);
+
+
     var months = Math.floor((counter - 1) / 4) + 1;
-    counter -= ((months-1) * 4);
+    counter -= ((months - 1) * 4);
 
     var datestring = '';
     switch (counter) {
@@ -274,7 +273,7 @@ function stopClock() {
 
 function sendPlayerUpdate(player) {
 
-    
+
 
     $.ajax('/player/update', {
         method: 'PUT',
@@ -293,47 +292,68 @@ function upgradetransaction(host) {
         'class': 'upgrade'
     });
 
-    
 
-    
 
-    
+
+
+
 }
+
+
+// Run once for debug
+$(document).one('ready', function () {
+    updatePlayer();
+    setTimeout(function () {
+        placeplayer(player);
+    }, 1000);
+})
+
 
 
 //Begin live code and listeners
 $(document).ready(function () {
-    // Determine player for current session
-    updatePlayer();
-    
-    
+
+
+
 
     // When user clicks on a map location
     $('.clickable').click(function () {
 
         //Set element to be updated = to target of clickable map
-        var currentelement = $(this).attr('data-target');
+        var currentelement = $(this);
+        var targetmodal = '#'+ $(this).context.id + 'Modal';
 
-        // Set player cityid to new location and update player in db
-        player.cityid = parseInt($(this).attr('data-cityid'));
+        console.log(targetmodal);
 
-        
-        sendPlayerUpdate(player);
-        movecarriage($(this));
-        
+        movecarriage(currentelement);
+
+        $('#carriage').promise().done(function () {
+
+            console.log('This worked');
 
 
-        //Get prices for goods
-        index = player.cityid - 1;
-        $.get('/priceupdate').then((data) => {
 
-            var priceobject = data[index].prices;
+            // Set player cityid to new location and update player in db
+            player.cityid = parseInt(currentelement.attr('data-cityid'));
 
-            for (var key in priceobject) {
 
-                $(currentelement).find('.' + key + 'price').text(priceobject[key]);
+            sendPlayerUpdate(player);
 
-            }
+            //Get prices for goods
+            index = player.cityid - 1;
+            $.get('/priceupdate').then((data) => {
+
+                var priceobject = data[index].prices;
+
+                for (var key in priceobject) {
+
+                    $(targetmodal).find('.' + key + 'price').text(priceobject[key]);
+
+                }
+
+                $(targetmodal).modal({
+                    show: true});
+            });
         });
     });
 
@@ -355,8 +375,8 @@ $(document).ready(function () {
         selllogic(this);
     });
 
-    $(document).on('click', '.upgrade', function() {
+    $(document).on('click', '.upgrade', function () {
         upgradetransaction(this);
     })
 
- });
+});
