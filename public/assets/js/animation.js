@@ -51,21 +51,43 @@ function coordrecalc () {
 
 }
 
-function movecarriage(destination, distance) {
+function movecarriage(destination, distance,timefactor) {
     var $carriage = $('#carriage');
     var ratio = $(document).width() / 1560;
 
-    $carriage.attr('src','./assets/img/horses-left.gif');
+    var leftorigin = parseInt($carriage.css('left').substr(0,$carriage.css('left').length-2));
+
+    // Time adjustment variable, designed for travel from The Wall to Winterfell to take three weeks of in game time
+    var constant = 4.74;
+
+    var time = (distance * ratio) * constant / timefactor;
+
+    console.log(time);
+
 
     var coords = $(destination).attr('data-carriage').split(',');
 
+    if (leftorigin > parseInt(coords[0]*ratio)) {
+        $carriage.attr('src','./assets/img/horses-left.gif');
+    }
+    else {
+        $carriage.attr('src','./assets/img/horses-right.gif');
+    }
+    
+    var targetx = parseInt(coords[0])*ratio;
+    var targety = parseInt(coords[1])*ratio;
     console.log(distance);
+
+    console.log('Target left: ' + targetx);
+    console.log('Target top: ' + targety);
 
     $carriage.animate({
         left: parseInt(coords[0]*ratio),
         top: parseInt(coords[1]*ratio)
-    }, distance*10, function() {
+    }, time, function() {
         $carriage.attr('src','./assets/img/horses-left-still.png');
+        console.log('Left: ' + $carriage.css('left'));
+        console.log('Top: ' + $carriage.css('top'));
     });
 
     

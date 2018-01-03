@@ -1,5 +1,7 @@
 //Set username in background for testing purposes
-var playername = 'Chris';
+var playername = location.pathname.substr(1);
+
+console.log(playername);
 
 // Empty global variable to hold player data
 var player;
@@ -20,25 +22,15 @@ function updatePlayer() {
         type: 'GET'
     }).then((data) => {
 
-        if (data === null) {
-
-            $.ajax('/player/' + playername, {
-                type: 'POST'
-            }).then((data) => {
-
-
-                player = data;
-                displayPlayer(player);
-
-            });
-        } else {
-
             player = data;
             displayPlayer(player);
 
-        }
+            //Prevent sutomatic carriage placement if animation is moving
+            var carriage = $('#carriage').attr('src');
 
-
+            if(carriage.indexOf('still') > 0) {
+                placeplayer(player);
+            }
     });
 
 
@@ -312,12 +304,10 @@ function route(destination,player) {
 }
 
 
-// Run once for debug
+// Run once to bring player data into page 
 $(document).one('ready', function () {
     updatePlayer();
-    setTimeout(function () {
-        placeplayer(player);
-    }, 1000);
+    
 })
 
 
@@ -339,7 +329,7 @@ $(document).ready(function () {
         var distance = route($(this), player);
 
         startClock();
-        movecarriage(currentelement, distance);
+        movecarriage(currentelement, distance,1);
 
         $('#carriage').promise().done(function () {
 
@@ -352,9 +342,10 @@ $(document).ready(function () {
 
             //Get prices for goods
             index = player.cityid - 1;
-            $.get('/priceupdate').then((data) => {
+            $.get('/game/priceupdate').then((data) => {
 
                 var priceobject = data[index].prices;
+                console.log(priceobject);
 
                 for (var key in priceobject) {
 

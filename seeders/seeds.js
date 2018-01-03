@@ -179,7 +179,7 @@ function seedModel1(db) {
 
         }),
         db.Cities.create({
-            city_name: 'Pentos',
+            city_name: 'Highgarden',
             xcoord: 100,
             ycoord: 500,
             grain_low: 6,
@@ -239,6 +239,36 @@ function seedModel1(db) {
 
         }),
         db.Cities.create({
+            city_name: 'Riverrun',
+            xcoord: 100,
+            ycoord: 500,
+            grain_low: 14,
+            grain_high: 18,
+            fish_low: 14,
+            fish_high: 33,
+            cloth_low: 35,
+            cloth_high: 51,
+            metal_low: 29,
+            metal_high: 51,
+            silk_low: 297,
+            silk_high: 553,
+            wood_low: 13,
+            wood_high: 25,
+            weapons_low: 201,
+            weapons_high: 375,
+            gems_low: 875,
+            gems_high: 1625,
+            medicine_low: 84,
+            medicine_high: 156,
+            poison_low: 420,
+            poison_high: 780,
+            dragonglass_low: 4025,
+            dragonglass_high: 7475,
+            wine_low: 45,
+            wine_high: 85
+
+        }),
+        db.Cities.create({
             city_name: 'Dragonstone',
             xcoord: 100,
             ycoord: 500,
@@ -269,7 +299,7 @@ function seedModel1(db) {
 
         }),
         db.Cities.create({
-            city_name: 'Bravos',
+            city_name: 'Casterly Rock',
             xcoord: 100,
             ycoord: 500,
             grain_low: 9,
