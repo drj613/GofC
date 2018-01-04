@@ -24,10 +24,17 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false,
         defaultValue: 0
       },
+      //Current location
       cityid: {
         type: DataTypes.INTEGER(10),
         allowNull: false,
-        defaultValue: 1
+        defaultValue: 8
+      },
+      //Destination
+      destinationid: {
+        type: DataTypes.INTEGER(10),
+        allowNull: false,
+        defaultValue: 0
       },
       gold: {
         type: DataTypes.INTEGER(10),
