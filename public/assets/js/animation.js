@@ -64,24 +64,15 @@ function movecarriage(routepoint, player) {
     var destx = parseInt(coords[0]*ratio);
     var desty = parseInt(coords[1]*ratio);
 
-    
-
     //Calculate distance via pythagorean theorum
     
     var distance = Math.sqrt(Math.pow(originx-destx,2) + Math.pow(originy-desty,2));
-
-    console.log('Distance: ' + distance);
-
-    
-    
 
     // Time adjustment variable, designed for travel from The Wall to Winterfell to take three weeks of in game time
     var constant = 8.06;
 
     var time = (distance) * constant / timefactor;
 
-    console.log('Time: ' + time);
-    
     if (originx > destx) {
         $carriage.attr('src','./assets/img/horses-left.gif');
     }
@@ -95,7 +86,7 @@ function movecarriage(routepoint, player) {
     }, time, function() {
         //After movement completed, send back to route function
         
-        route(player);       
+        route();       
         
     });
 

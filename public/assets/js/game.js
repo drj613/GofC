@@ -1,6 +1,8 @@
 //Set username in background for testing purposes
 var playername = location.pathname.substr(1);
 
+// set up empty variable to receive events data (only called once)
+var events;
 
 
 // Empty global variable to hold player data
@@ -54,6 +56,7 @@ function displayPlayer(playerdata) {
 
         //Determine if carriage is moving
         var carriageimage = $('#carriage').attr('src')
+        
         if (carriageimage.indexOf('still') >= 0) {
             $('#citydata').text(data[playerdata.cityid - 1].city);
         } else {
@@ -220,9 +223,68 @@ function timer() {
     if (timecounter === 10) {
         //Update calendar every 10 cycles (1 second)
         player.timecount++;
+        checkevent(player.timecount);
         sendPlayerUpdate(player);
         timecounter = 0;
     }
+}
+
+function checkevent(timecount) {
+
+    for (i=0; i<events.length; i++) {
+        if (timecount === events[i].timecountstart) {
+            startevent(events[i]);
+        }
+        if (timecount === events[i].timecountend) {
+            endevent(events[i]);
+        }
+    }
+
+}
+
+function startevent(event) {
+    console.log(event);
+    console.log(event.title + ' has started');
+
+    $.ajax('/cities/event',{
+        type: 'PUT',
+        data: event
+    }).then(function(data) {
+
+        var $div = $('<div/>', {
+            id: 'event' + event.id,
+            class: 'events'
+        });
+
+        $div.append('<h4>' + event.title + '</h4><p> ' + event.description + '</p>');
+
+        console.log($div.text());
+        $('#eventbox').append($div);
+        setTimeout(function() {
+            $div.remove();
+        },15000);
+
+    });
+}
+
+function endevent(event) {
+    
+    //change eventeffect to 0 in event object so that it can be sent to the API
+    event.eventeffect = 0;
+
+    $.ajax('/cities/event',{
+        type: 'PUT',
+        data: event
+    }).then(function(data) {
+
+        var $div = $('<div/>', {
+            id: 'event' + event.id + 'end',
+            class: 'events'
+        });
+
+        $div.append('<h4>' + event.title + ' has ended.</h4><p>' + event.goodaffected + ' prices have returned to normal</p>');
+    });
+
 }
 
 function calendar(counter) {
@@ -307,7 +369,7 @@ function upgradetransaction(host) {
 
 }
 
-function route(player) {
+function route() {
     var routepoint;
 
     var cityid = parseInt(player.cityid)
@@ -340,6 +402,7 @@ function route(player) {
             routepoint = destinationid;
         }
         
+        $.ajax()
         player.cityid = routepoint;
         sendPlayerUpdate(player);
         movecarriage(routepoint, player);
@@ -398,9 +461,17 @@ function arrival(player) {
 
 // Run once to bring player data into page 
 $(document).one('ready', function () {
+
     updatePlayer().then(function () {
         
         placeplayer(player);
+    });
+
+    $.ajax('/game/events', {
+        type: 'GET'
+    }).then( function(data){
+        events=data;
+        
     });
 
 })
