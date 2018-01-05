@@ -83,11 +83,20 @@ function movecarriage(routepoint, player) {
     $carriage.animate({
         left: destx,
         top: desty
-    }, time, function() {
+    }, {
+        duration: time, 
+        step: function(){
+            var posX = $carriage.position().left;
+            var posY = $carriage.position().top;
+
+            $(window)
+            .scrollLeft(posX)
+            .scrollTop(posY - $(window).height()/2);
+        },
+        complete: function() {
         //After movement completed, send back to route function
-        
         route();       
-        
+        }
     });
 
     
@@ -110,13 +119,12 @@ function placeplayer(player) {
 
     
     
-    
     $carriage.css({
         top: placey,
         left: placex
     });
 
-
+    
 
     
 }
