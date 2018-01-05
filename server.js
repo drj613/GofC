@@ -1,7 +1,7 @@
 // *********************************************************************************
 // Server.js - This file is the initial starting point for the Node/Express server.
 // *********************************************************************************
-
+console.log('Hello from Heroku');
 // Dependencies
 // =============================================================
 var express = require("express");
