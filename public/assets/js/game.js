@@ -255,13 +255,18 @@ function startevent(event) {
             id: 'event' + event.id,
             class: 'events'
         });
-
-        $div.append('<h4>' + event.title + '</h4><p> ' + event.description + '</p>');
+        $div.hide().append('<h4 id="eventName">' + event.title + '</h4><hr><p> ' + event.description + '</p>');
+        $div.show();
 
         console.log($div.text());
         $('#eventbox').append($div);
+        $('#eventbox').fadeIn("slow");
+        
         setTimeout(function() {
             $div.remove();
+            if ($('#eventbox').is(':visible')){
+                $('#eventbox').fadeOut('slow');
+            }
         },15000);
 
     });
@@ -516,5 +521,19 @@ $(document).ready(function () {
     $(document).on('click', '.upgrade', function () {
         upgradetransaction(this);
     });
+
+    // Show and hide inventory
+    $(".dHead").on("click", function () {
+        if($('.dBody').hasClass('hidden')){
+            $('.dBody').removeClass('hidden');
+        } else {
+            $('.dBody').addClass('hidden');
+        }
+    });
+
+    // Dismissal of event pop-up
+    $(".events").on("click", function(){
+        $(".events").fadeOut("slow");
+    })
 
 });
