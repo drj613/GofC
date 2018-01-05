@@ -233,7 +233,13 @@ function checkevent(timecount) {
 
     for (i=0; i<events.length; i++) {
         if (timecount === events[i].timecountstart) {
-            startevent(events[i]);
+            if(events[i].goodaffected === 'city') {
+                disablecity(events[i]);
+            }
+            else {
+                startgoodevent(events[i]);
+            }
+            
         }
         if (timecount === events[i].timecountend) {
             endevent(events[i]);
@@ -242,7 +248,7 @@ function checkevent(timecount) {
 
 }
 
-function startevent(event) {
+function startgoodevent(event) {
     console.log(event);
     console.log(event.title + ' has started');
 
@@ -265,6 +271,11 @@ function startevent(event) {
         },15000);
 
     });
+}
+
+function disablecity(event) {
+    //A function to disable cities as the White Walkers march down the continent
+    console.log('This isn\'t built yet.');
 }
 
 function endevent(event) {

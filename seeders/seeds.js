@@ -501,7 +501,7 @@ function seedModel4(db) {
             timecountend: 214
         }),
         db.Events.create({
-            title: 'Margaery Tyrell engaged AGAIN',
+            title: 'Margaery Tyrell engaged AGAIN!',
             description: 'Margaery Tyrell is now engaged to TOMMEN Baratheon as part of a marriage-alliance seeking to maintain the Lannis ... er Baratheon line. She really seems to have a thing for Baratheon kings. Due to the large number of lavish jewelrey given to Ms. Tyrell AGAIN, gem prices soar once more in the South. Third time is the charm, right?',
             regionaffected: 2,
             goodaffected: 'gems',
@@ -510,7 +510,7 @@ function seedModel4(db) {
             timecountend: 224
         }),
         db.Events.create({
-            title: 'Rise of the Sparrows',
+            title: 'Rise of the Sparrows!',
             description: 'Mistreatment of the commonfolk has caused a fanatical religious sect called \'The Sparrows\' to rise and take control of the Faith of the Seven. Humble clothing is in, driving the price of cloth through the roof in the South',
             regionaffected: 2,
             goodaffected: 'cloth',
@@ -519,24 +519,131 @@ function seedModel4(db) {
             timecountend: 234
         }),
         db.Events.create({
-            title: 'Massacre at Hardhome',
-            description: 'The Night\'s Watch has just witnessed the full power of the White Walkers at the massacre of Hardhome. The North concludes that weapons are worthless.',
-            regionaffected: 2,
-            goodaffected: 'cloth',
-            eventeffect: 1,
-            timecountstart: 218,
-            timecountend: 234
+            title: 'Massacre at Hardhome!',
+            description: 'The Night\'s Watch has just witnessed the full power of the White Walkers at the massacre of Hardhome. The North concludes that normal weapons are worthless in the face of the coming threat.',
+            regionaffected: 1,
+            goodaffected: 'weapons',
+            eventeffect: -1,
+            timecountstart: 226,
+            timecountend: 242
         }),
         db.Events.create({
-            title: 'Wildlings allowed into the North',
-            description: 'Mistreatment of the commonfolk has caused a fanatical religious sect called \'The Sparrows\' to rise and take control of the Faith of the Seven. Humble clothing is in, driving the price of cloth through the roof in the South',
+            title: 'Wildlings allowed into the North!',
+            description: 'What few Wildlings were rescued by Jon Snow at Hardhome have been allowed beyond the Wall and into the North for the first time. The added labor force produces a surplus of wood in the North',
+            regionaffected: 1,
+            goodaffected: 'wood',
+            eventeffect: -1,
+            timecountstart: 234,
+            timecountend: 250
+        }),
+        db.Events.create({
+            title: 'Massacre at Hardhome!',
+            description: 'The Night\'s Watch has just witnessed the full power of the White Walkers at the massacre of Hardhome. The North concludes that normal weapons are worthless in the face of the coming threat.',
+            regionaffected: 1,
+            goodaffected: 'weapons',
+            eventeffect: -1,
+            timecountstart: 226,
+            timecountend: 242
+        }),
+        db.Events.create({
+            title: 'Greyjoys Everywhere!',
+            description: 'With Euron Greyjoy helping the Lannisters, and Yara and Theon Greyjoy helping Daenerys Targaryen, the Greyjoy clan are now all over Westeros. Their expert fisherman skills lead to a surge in available fish',
             regionaffected: 2,
-            goodaffected: 'cloth',
+            goodaffected: 'fish',
+            eventeffect: -1,
+            timecountstart: 252,
+            timecountend: 268
+        }),
+        db.Events.create({
+            title: 'Cersei blows up the Sept!',
+            description: 'Cersei Lannister has blown up the Great Sept of Baelor, destroying all of her enemies (and most of the nobility) in King\'s Landing. With all those fancy clothes up in smoke, the price of silk skyrockets in preparation for a new wave of nobility',
+            regionaffected: 2,
+            goodaffected: 'silk',
             eventeffect: 1,
-            timecountstart: 218,
-            timecountend: 234
+            timecountstart: 276,
+            timecountend: 292
+        }),
+        db.Events.create({
+            title: 'Jon Snow finds Dragonglass!',
+            description: 'Desperate to find ways to fight the White Walkers, Jon Snow discovers that Dragonstone sits above an ocean of the precious metal. He comes to an agreement with Daenerys to mine the precious metal, flooding the market in Dragonstone',
+            regionaffected: 3,
+            goodaffected: 'dragonglass',
+            eventeffect: -1,
+            timecountstart: 296,
+            timecountend: 312
+        }),
+        db.Events.create({
+            title: 'Plunder of Highgarden',
+            description: 'The Lannister army has sacked Highgarden in order to scrounge up enough gold to pay the Iron Bank, and happened upon three failed marriages worth of the late Margaery Tyrell\'s wedding gifts. Gem prices plummet!',
+            regionaffected: 2,
+            goodaffected: 'gems',
+            eventeffect: -1,
+            timecountstart: 310,
+            timecountend: 326
+        }),
+        db.Events.create({
+            title: 'Daenerys rides Drogon into battle!',
+            description: 'Tiring of constant setbacks in her war to reclaim The Seven Kingdoms, Daenerys Targaryen rides Drogon into battle herself and immolates an entire division of the Lannister army. Legions of burn victims seeking treatment drive the price of medicine sky high.',
+            regionaffected: 2,
+            goodaffected: 'medicine',
+            eventeffect: -1,
+            timecountstart: 318,
+            timecountend: 334
+        }),
+        db.Events.create({
+            title: 'March of the White Walkers',
+            description: 'The White Walkers have penetrated The Wall. Castle Black has been overrun, and the vast undead army is marching south',
+            regionaffected: 1,
+            goodaffected: 'city',
+            eventeffect: 2,
+            timecountstart: 336,
+            timecountend: 400
+        }),
+        db.Events.create({
+            title: 'March of the White Walkers continues',
+            description: 'The White Walkers have reached Winterfell. Bran Stark survives the assault by fulfilling his destiny and becoming a tree',
+            regionaffected: 2,
+            goodaffected: 'city',
+            eventeffect: 2,
+            timecountstart: 344,
+            timecountend: 400
+        }),
+        db.Events.create({
+            title: 'March of the White Walkers continues',
+            description: 'The White Walkers have reached The Twins. The people of Pyke suddenly realize islands are a pretty great place to live.',
+            regionaffected: 3,
+            goodaffected: 'city',
+            eventeffect: 2,
+            timecountstart: 352,
+            timecountend: 400
+        }),
+        db.Events.create({
+            title: 'March of the White Walkers continues',
+            description: 'The White Walkers have reached The Eyrie. Many wights die in confusion about how the Moon Door works.',
+            regionaffected: 5,
+            goodaffected: 'city',
+            eventeffect: 2,
+            timecountstart: 360,
+            timecountend: 400
+        }),
+        db.Events.create({
+            title: 'March of the White Walkers continues',
+            description: 'The White Walkers have reached Riverrun. Daenerys Targaryen proclaims "Forget this, I already control most of Essos, I\'m out"',
+            regionaffected: 6,
+            goodaffected: 'city',
+            eventeffect: 2,
+            timecountstart: 368,
+            timecountend: 400
+        }),
+        db.Events.create({
+            title: 'March of the White Walkers continues',
+            description: 'The White Walkers have reached King\'s Landing. All hope is lost as the Night King claims the Iron Throne for himself.',
+            regionaffected: 8,
+            goodaffected: 'city',
+            eventeffect: 2,
+            timecountstart: 376,
+            timecountend: 400
         })
-
       
     ]);
 }
