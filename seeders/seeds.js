@@ -411,12 +411,12 @@ function seedModel4(db) {
             timecountend: 66
         }),
         db.Events.create({
-            title: 'Margaery Tyrell married!',
-            description: 'Margaery Tyrell has married Renly Baratheon as part of a marriage-alliance seeking to overthrow Joffrey "Baratheon" as king. Due to the large number of lavish jewelrey given to Ms. Tyrell, gem prices soar in the South. Everyone is sure this marriage will last forever.',
+            title: 'Margaery Tyrell engaged!',
+            description: 'Margaery Tyrell is engaged to Renly Baratheon as part of a marriage-alliance seeking to overthrow Joffrey "Baratheon" as king. Due to the large number of lavish jewelrey given to Ms. Tyrell, gem prices soar in the South. Everyone is sure this marriage will last forever.',
             regionaffected: 2,
             goodaffected: 'gems',
             eventeffect: 1,
-            timecountstart: 64,
+            timecountstart: 56,
             timecountend: 80
         }),
         db.Events.create({
@@ -438,14 +438,106 @@ function seedModel4(db) {
             timecountend: 100
         }),
         db.Events.create({
-            title: 'White Walker Killed!',
-            description: 'Unlikely hero Samwell Tarly is the first man to kill a White Walker in 8000 years, discovering that they can be destroyed with weapons made from Dragonglass. Dragonglass prices soar in the North',
-            regionaffected: 1,
-            goodaffected: 'dragonglass',
+            title: 'Margaery Tyrell engaged again!',
+            description: 'Margaery Tyrell is now engaged to Joffrey Baratheon as part of a marriage-alliance seeking to maintain Joffrey "Baratheon" as king. Due to the large number of lavish jewelrey given to Ms. Tyrell again, gem prices soar in the South. Surely, this marriage will be more successful.',
+            regionaffected: 2,
+            goodaffected: 'gems',
             eventeffect: 1,
-            timecountstart: 50,
-            timecountend: 66
+            timecountstart: 120,
+            timecountend: 136
+        }),
+        db.Events.create({
+            title: 'The Red Wedding!',
+            description: 'Robb Stark, Catelyn Stark and most of the Northern army are brutally betrayed and slaughtered by Walder Frey and the Boltons after observing the ritual of guest right. Grain prices in the North plummet, because bread and salt aren\'t worth what they used to.',
+            regionaffected: 1,
+            goodaffected: 'grain',
+            eventeffect: -1,
+            timecountstart: 132,
+            timecountend: 148
+        }),
+        db.Events.create({
+            title: 'The Purple Wedding!',
+            description: 'Joffrey Baratheon has been poisoned at his own wedding feast. The popularity (and price) of poison goes through the roof, because everybody hated that guy. Margaery Tyrell is now 0 for 2 on the consumated marriages front.',
+            regionaffected: 2,
+            goodaffected: 'poison',
+            eventeffect: 1,
+            timecountstart: 150,
+            timecountend: 166
+        }),
+        db.Events.create({
+            title: 'The Lannister mines run dry!',
+            description: 'Reports emerge that there is no more gold to be mined at Casterly Rock. Out of work gold miners move on to less lucrative metals, flooding the ore market in the South until prices collapse',
+            regionaffected: 2,
+            goodaffected: 'metal',
+            eventeffect: -1,
+            timecountstart: 160,
+            timecountend: 176
+        }),
+        db.Events.create({
+            title: 'The Wildlings are coming!',
+            description: 'A huge wildling army has been spotted north of The Wall. As preparations for battle are made, weapons become a very hot commodity in the North',
+            regionaffected: 1,
+            goodaffected: 'weapons',
+            eventeffect: -1,
+            timecountstart: 172,
+            timecountend: 188
+        }),
+        db.Events.create({
+            title: 'Oberyn Martell killed!',
+            description: 'Oberyn Martell has died in single combat, fighting The Mountain to defend Tyrion Lannister in trial by combat. Oberyn\'s warddrobe is looted, flooding the South with excess silk robes',
+            regionaffected: 2,
+            goodaffected: 'silk',
+            eventeffect: -1,
+            timecountstart: 184,
+            timecountend: 200
+        }),
+        db.Events.create({
+            title: 'Tyrion Lannister escapes!',
+            description: 'Having just been sentenced to death, Tyrion Lannister murders his father and flees King\'s Landing, apparently taking all the wine in Westeros with him. Wine prices in the South skyrocket',
+            regionaffected: 2,
+            goodaffected: 'wine',
+            eventeffect: 1,
+            timecountstart: 198,
+            timecountend: 214
+        }),
+        db.Events.create({
+            title: 'Margaery Tyrell engaged AGAIN',
+            description: 'Margaery Tyrell is now engaged to TOMMEN Baratheon as part of a marriage-alliance seeking to maintain the Lannis ... er Baratheon line. She really seems to have a thing for Baratheon kings. Due to the large number of lavish jewelrey given to Ms. Tyrell AGAIN, gem prices soar once more in the South. Third time is the charm, right?',
+            regionaffected: 2,
+            goodaffected: 'gems',
+            eventeffect: 1,
+            timecountstart: 208,
+            timecountend: 224
+        }),
+        db.Events.create({
+            title: 'Rise of the Sparrows',
+            description: 'Mistreatment of the commonfolk has caused a fanatical religious sect called \'The Sparrows\' to rise and take control of the Faith of the Seven. Humble clothing is in, driving the price of cloth through the roof in the South',
+            regionaffected: 2,
+            goodaffected: 'cloth',
+            eventeffect: 1,
+            timecountstart: 218,
+            timecountend: 234
+        }),
+        db.Events.create({
+            title: 'Massacre at Hardhome',
+            description: 'The Night\'s Watch has just witnessed the full power of the White Walkers at the massacre of Hardhome. The North concludes that weapons are worthless.',
+            regionaffected: 2,
+            goodaffected: 'cloth',
+            eventeffect: 1,
+            timecountstart: 218,
+            timecountend: 234
+        }),
+        db.Events.create({
+            title: 'Wildlings allowed into the North',
+            description: 'Mistreatment of the commonfolk has caused a fanatical religious sect called \'The Sparrows\' to rise and take control of the Faith of the Seven. Humble clothing is in, driving the price of cloth through the roof in the South',
+            regionaffected: 2,
+            goodaffected: 'cloth',
+            eventeffect: 1,
+            timecountstart: 218,
+            timecountend: 234
         })
+
+      
     ]);
 }
 
