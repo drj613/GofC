@@ -65,7 +65,7 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: false,
             defaultValue: 0
         },
-        grain_event: {
+        wine_event: {
             type: DataTypes.INTEGER(10),
             allowNull: false,
             defaultValue: 0

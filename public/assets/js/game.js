@@ -1,5 +1,9 @@
 //Set username in background for testing purposes
-var playername = 'Chris';
+var playername = location.pathname.substr(1);
+
+// set up empty variable to receive events data (only called once)
+var events;
+
 
 // Empty global variable to hold player data
 var player;
@@ -16,33 +20,22 @@ var timecounter = 0;
 // Get's most recent player data from db
 function updatePlayer() {
 
-    $.ajax('/player/' + playername, {
-        type: 'GET'
-    }).then((data) => {
+    return new Promise(function (res, rej) {
 
-        if (data === null) {
-
-            $.ajax('/player/' + playername, {
-                type: 'POST'
-            }).then((data) => {
-
-
-                player = data;
-                displayPlayer(player);
-
-            });
-        } else {
+        $.ajax('/player/' + playername, {
+            type: 'GET'
+        }).then((data) => {
 
             player = data;
             displayPlayer(player);
 
-        }
+
+            res(data);
+        });
+
 
 
     });
-
-
-
 };
 
 function findtotal(playerdata) {
@@ -53,26 +46,48 @@ function findtotal(playerdata) {
 // Updates player display
 function displayPlayer(playerdata) {
 
-    // Calculate total inventory
-    var totalinventory = findtotal(playerdata);
-    $('#playerdata').text(playerdata.username);
-    $('#golddata').text(playerdata.gold);
-    $('#citydata').text(playerdata.cityid);
-    $('#timedata').text(calendar(playerdata.timecount));
-    $('#currentdata').text(totalinventory);
-    $('#maxdata').text(playerdata.max_space);
-    $('#graindata').text(playerdata.grain);
-    $('#fishdata').text(playerdata.fish);
-    $('#clothdata').text(playerdata.cloth);
-    $('#metaldata').text(playerdata.metal);
-    $('#winedata').text(playerdata.wine);
-    $('#silkdata').text(playerdata.silk);
-    $('#wooddata').text(playerdata.wood);
-    $('#weaponsdata').text(playerdata.weapons);
-    $('#gemsdata').text(playerdata.gems);
-    $('#medicinedata').text(playerdata.medicine);
-    $('#poisondata').text(playerdata.poison);
-    $('#dragonglassdata').text(playerdata.dragon_glass);
+    $.ajax('/game/priceupdate', {
+        type: 'GET'
+    }).then(function (data) {
+        // Calculate total inventory
+        var totalinventory = findtotal(playerdata);
+        $('#playerdata').text(playerdata.username);
+        $('#golddata').text(playerdata.gold);
+
+        //Determine if carriage is moving
+        var carriageimage = $('#carriage').attr('src')
+        
+        if (carriageimage.indexOf('still') >= 0) {
+            $('#citydata').text(data[playerdata.cityid - 1].city);
+        } else {
+            $('#citydata').text('Traveling to ' + data[playerdata.cityid - 1].city);
+        }
+
+
+        //Determine if new destination has been set
+        if (playerdata.destinationid === 0) {
+            $('#destinationdata').text('None');
+        } else {
+            $('#destinationdata').text(data[playerdata.destinationid - 1].city);
+        }
+
+        $('#timedata').text(calendar(playerdata.timecount));
+        $('#currentdata').text(totalinventory);
+        $('#maxdata').text(playerdata.max_space);
+        $('#graindata').text(playerdata.grain);
+        $('#fishdata').text(playerdata.fish);
+        $('#clothdata').text(playerdata.cloth);
+        $('#metaldata').text(playerdata.metal);
+        $('#winedata').text(playerdata.wine);
+        $('#silkdata').text(playerdata.silk);
+        $('#wooddata').text(playerdata.wood);
+        $('#weaponsdata').text(playerdata.weapons);
+        $('#gemsdata').text(playerdata.gems);
+        $('#medicinedata').text(playerdata.medicine);
+        $('#poisondata').text(playerdata.poison);
+        $('#dragonglassdata').text(playerdata.dragon_glass);
+
+    });
 
 
 }
@@ -208,9 +223,68 @@ function timer() {
     if (timecounter === 10) {
         //Update calendar every 10 cycles (1 second)
         player.timecount++;
+        checkevent(player.timecount);
         sendPlayerUpdate(player);
         timecounter = 0;
     }
+}
+
+function checkevent(timecount) {
+
+    for (i=0; i<events.length; i++) {
+        if (timecount === events[i].timecountstart) {
+            startevent(events[i]);
+        }
+        if (timecount === events[i].timecountend) {
+            endevent(events[i]);
+        }
+    }
+
+}
+
+function startevent(event) {
+    console.log(event);
+    console.log(event.title + ' has started');
+
+    $.ajax('/cities/event',{
+        type: 'PUT',
+        data: event
+    }).then(function(data) {
+
+        var $div = $('<div/>', {
+            id: 'event' + event.id,
+            class: 'events'
+        });
+
+        $div.append('<h4>' + event.title + '</h4><p> ' + event.description + '</p>');
+
+        console.log($div.text());
+        $('#eventbox').append($div);
+        setTimeout(function() {
+            $div.remove();
+        },15000);
+
+    });
+}
+
+function endevent(event) {
+    
+    //change eventeffect to 0 in event object so that it can be sent to the API
+    event.eventeffect = 0;
+
+    $.ajax('/cities/event',{
+        type: 'PUT',
+        data: event
+    }).then(function(data) {
+
+        var $div = $('<div/>', {
+            id: 'event' + event.id + 'end',
+            class: 'events'
+        });
+
+        $div.append('<h4>' + event.title + ' has ended.</h4><p>' + event.goodaffected + ' prices have returned to normal</p>');
+    });
+
 }
 
 function calendar(counter) {
@@ -293,31 +367,113 @@ function upgradetransaction(host) {
     });
 
 
+}
+
+function route() {
+    var routepoint;
+
+    var cityid = parseInt(player.cityid)
+    var destinationid = parseInt(player.destinationid);
+    //Recurring function will keep going until player arrives at destination
+    if (cityid !== destinationid) {
+
+        //All travel from Castle Black (id 1) routed through Winterfell (id 2)
+        //All travel from The Twins (id 3) going north routed through Winterfell (id 2)
+        if (cityid === 1 || (cityid === 3 && destinationid <= 2)) {
+            routepoint = 2;
+        }
+        //All travel from Winterfell (id 2) going south routed through The Twins (id 3)
+        //All travel from the Crossroads going north routed through The Twins
+        else if ((cityid === 2 && destinationid !== 1) || (cityid === 4 && destinationid < 4)) {
+            routepoint = 3;
+        }
+        //All travel from The Twins (id 3) to any southern city (ids 5-11) routed through the crossroads (id 4)
+        //All travel from all southern cities (ids 6-11) to all northern cities (id 1-3) + The Eyrie (id 5) routed through the crossroads (id 4)
+        //All travel from 
+        else if ((cityid === 3 && destinationid > 4) || (cityid > 5 && destinationid < 6) || (cityid === 5)) {
+            routepoint = 4;
+        }
+        //Route from Casterly Rock(id 10) to Dragonstone (id 11) routed through King's Landing (id 8) 
+        else if (cityid === 10 && destinationid === 11) {
+            routepoint = 8;
+        }
+        //All other travel simply routed to destination
+        else {
+            routepoint = destinationid;
+        }
+        
+        $.ajax()
+        player.cityid = routepoint;
+        sendPlayerUpdate(player);
+        movecarriage(routepoint, player);
 
 
+    }
+    //If carriage has reached destination, change image to still image, fulfilling jquery .done function in original call
+    else {
+        arrival(player);
+    }
 
 
 }
+//Function for when carriage arrives at final destination
+function arrival(player) {
 
-function route(destination,player) {
-
-    var start = $('area[data-cityid=\'' + player.cityid + '\']').attr('data-carriage').split(',');
+    stopClock();
+    var $carriage = $('#carriage').attr('src');
     
-    var end = destination.attr('data-carriage').split(',');
+    if ($carriage.indexOf('right') > 0) {
+        $('#carriage').attr('src', './assets/img/horses-right-still.png');
+    } else {
+        $('#carriage').attr('src','./assets/img/horses-left-still.png');
+    }
 
-    //Calculate distance between two points using Pythagorean theorum
-    var distance = Math.sqrt(Math.pow(parseInt(start[0]) - parseInt(end[0]),2) + Math.pow(parseInt(start[1]) - parseInt(end[1]),2));
+    // Set player cityid to new location and update player in db
+    player.destinationid = 0;
+    sendPlayerUpdate(player);
 
-    return distance;
+    //Find modal for arrival city
+    var $city = $('area[data-cityid=\'' + player.cityid + '\']');
+    var targetmodal = '#' + $city.attr('id') + 'Modal';
+
+  
+
+    //Get prices for goods
+    index = player.cityid - 1;
+    $.get('/game/priceupdate').then((data) => {
+
+        var priceobject = data[index].prices;
+       
+
+        for (var key in priceobject) {
+
+            $(targetmodal).find('.' + key + 'price').text(priceobject[key]);
+
+        }
+
+        $(targetmodal).modal({
+            show: true
+        });
+
+    });
 }
 
 
-// Run once for debug
+// Run once to bring player data into page 
 $(document).one('ready', function () {
-    updatePlayer();
-    setTimeout(function () {
+
+    updatePlayer().then(function () {
+        
         placeplayer(player);
-    }, 1000);
+    });
+
+    $.ajax('/game/events', {
+        type: 'GET'
+    }).then( function(data){
+        events=data;
+        
+    });
+
 })
 
 
@@ -331,42 +487,13 @@ $(document).ready(function () {
     // When user clicks on a map location
     $('.clickable').click(function () {
 
-        //Set element to be updated = to target of clickable map
-        var currentelement = $(this);
-        var targetmodal = '#'+ $(this).context.id + 'Modal';
-
-        console.log(targetmodal);
-        var distance = route($(this), player);
-
         startClock();
-        movecarriage(currentelement, distance);
+        player.destinationid = $(this).attr('data-cityid');
+        sendPlayerUpdate(player);
+        route(player);
 
-        $('#carriage').promise().done(function () {
-
-            stopClock();
-            // Set player cityid to new location and update player in db
-            player.cityid = parseInt(currentelement.attr('data-cityid'));
-
-
-            sendPlayerUpdate(player);
-
-            //Get prices for goods
-            index = player.cityid - 1;
-            $.get('/priceupdate').then((data) => {
-
-                var priceobject = data[index].prices;
-
-                for (var key in priceobject) {
-
-                    $(targetmodal).find('.' + key + 'price').text(priceobject[key]);
-
-                }
-
-                $(targetmodal).modal({
-                    show: true});
-            });
-        });
     });
+
 
     // Listeners for buy and sell requests
     $(document).on('click', '.buy', function () {
@@ -388,6 +515,6 @@ $(document).ready(function () {
 
     $(document).on('click', '.upgrade', function () {
         upgradetransaction(this);
-    })
+    });
 
 });

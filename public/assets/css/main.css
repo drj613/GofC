@@ -94,6 +94,17 @@ a:hover {
     padding: 10px;
 }
 
+.events {
+    background: lightblue;
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    height: 300px;
+    width: 250px;
+    z-index: 3;
+    font-size: 16;
+}
+
 span {
     text-align: right;
 }
