@@ -5,6 +5,7 @@ $(document).ready(function(){
 
 
     $("#agree").click(function(){
+        event.preventDefault();
         $("#splash-username").toggle();
     });
 
