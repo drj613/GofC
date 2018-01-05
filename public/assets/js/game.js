@@ -112,7 +112,7 @@ function buildtransaction(type, host) {
     var playerkeys = Object.keys(player);
     var optionsstring = '';
 
-    for (i = 7; i < playerkeys.length; i++) {
+    for (i = 8; i < playerkeys.length; i++) {
         optionsstring += '<option value=\'' + playerkeys[i] + '\'>' + playerkeys[i] + '</option>';
 
     }
