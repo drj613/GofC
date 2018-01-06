@@ -93,7 +93,13 @@ a:hover {
 }
 
 hr {
-    color: grey;
+    width: 80%;
+    height: 5px;
+    color: silver;
+}
+
+.buyTit{
+    text-align: center;
 }
 
 .events {
@@ -122,14 +128,14 @@ hr {
     cursor: pointer;
 }
 
-.modal{
+.modal-content{
     background-image: url("../img/modal.jpg");
 }
 
-.modal-content{
+/* .modal-content{
     background-color: black;
     color: white;
-}
+} */
 
 .modal-header{
     text-align: center;

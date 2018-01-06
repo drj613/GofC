@@ -16,6 +16,14 @@ var clockid;
 //with each second in player.timecount = one week of in-game time.
 var timecounter = 0;
 
+// Toggles view of inventory
+function showHideInv(){
+    if($('.dBody').hasClass('hidden')){
+        $('.dBody').removeClass('hidden');
+    } else {
+        $('.dBody').addClass('hidden');
+    }
+}
 
 // Get's most recent player data from db
 function updatePlayer() {
@@ -471,6 +479,10 @@ function arrival(player) {
             show: true
         });
 
+        if($('.dBody').hasClass('hidden')){
+            showHideInv();
+        }
+
     });
 }
 
@@ -535,16 +547,16 @@ $(document).ready(function () {
 
     // Show and hide inventory
     $(".dHead").on("click", function () {
-        if($('.dBody').hasClass('hidden')){
-            $('.dBody').removeClass('hidden');
-        } else {
-            $('.dBody').addClass('hidden');
-        }
+        showHideInv();
     });
 
     // Dismissal of event pop-up
     $(".events").on("click", function(){
         $(".events").fadeOut("slow");
+    })
+
+    $(".modal").on("hidden.bs.modal", function(){
+        showHideInv();
     })
 
 });
