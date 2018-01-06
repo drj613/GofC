@@ -22,7 +22,7 @@ The game ends when...
 
 Play to find out:
 
-(heroku link)
+https://game-of-trades.herokuapp.com/
 
 Google Doc
 
