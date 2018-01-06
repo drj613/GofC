@@ -92,14 +92,19 @@ a:hover {
     line-height: 0.5;
 }
 
-
+hr {
+    color: grey;
+}
 
 .events {
-    background: lightblue;
+    background-image: url("../img/stone-background.jpg");
     position: fixed;
     bottom: 5%;
     right: 5%;
     width: 250px;
+    border: solid goldenrod;
+    color: white;
+    padding: 1%;
     z-index: 3;
     font-size: 16;
     display: none;
@@ -117,9 +122,25 @@ a:hover {
     cursor: pointer;
 }
 
+.modal{
+    background-image: url("../img/modal.jpg");
+}
+
+.modal-content{
+    background-color: black;
+    color: white;
+}
+
+.modal-header{
+    text-align: center;
+}
+
 .dHead {
+    background-image: url("../img/stone-background.jpg");
+    opacity: 1;
+    border-radius: 2%;
     font-size: 20px;
-    padding-top: 5px;
+    padding-top: 8px;
     color: black;
     -webkit-text-fill-color: white;
     -webkit-text-stroke-width: 1px;
@@ -142,7 +163,8 @@ a:hover {
 
 .dBody {
     background-image: url("../img/invbg.png");
-    /* background-size: cover; */
+    border: white transparent;
+    border-radius: 1%;
     padding: 10px;
     color: black;
     -webkit-text-fill-color: white;
