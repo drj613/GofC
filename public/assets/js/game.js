@@ -270,6 +270,7 @@ function checkevent(timecount) {
 
 }
 
+
 function startgoodevent(event) {
     console.log(event);
     console.log(event.title + ' has started');
@@ -287,8 +288,14 @@ function startgoodevent(event) {
         $div.show();
 
         console.log($div.text());
-        $('#eventbox').append($div);
-        $('#eventbox').fadeIn("slow");
+        
+        if ($('#eventbox').is(':empty')){
+            $('#eventbox').append($div);
+            $('#eventbox').fadeIn("slow");
+          } else {
+            $('#eventbox').append($div);
+          }
+        
 
         setTimeout(function () {
             if ($('#eventbox').is(':visible')) {
@@ -674,5 +681,7 @@ $(document).ready(function () {
         $('#tooltip').remove();
 
     })
+
+    $('.modal').attr('data-backdrop', 'false');
 
 });
