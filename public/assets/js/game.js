@@ -285,10 +285,16 @@ function startgoodevent(event) {
         });
         $div.append('<h4 id="eventName">' + event.title + '</h4><hr><p> ' + event.description + '</p>');
         $div.show();
-
-        console.log($div.text());
-        $('#eventbox').append($div);
-        $('#eventbox').fadeIn("slow");
+        
+        if ($('#eventbox').is(':empty')){
+            $('#eventbox').append($div);
+            $('#eventbox').fadeIn("slow");
+          } else {
+            $('#eventbox').append($div);
+          }
+        // console.log($div.text());
+        // $('#eventbox').append($div);
+        // $('#eventbox').fadeIn("slow");
 
         setTimeout(function () {
             if ($('#eventbox').is(':visible')) {
@@ -571,6 +577,7 @@ $(document).ready(function () {
             $(targetmodal).modal({
                 show: true
             });
+            showHideInv();
         } else {
 
             startClock();
@@ -616,7 +623,7 @@ $(document).ready(function () {
     })
 
     $(".modal").on("hidden.bs.modal", function(){
-        
+        $('.transaction').remove();
         showHideInv();
     });
 

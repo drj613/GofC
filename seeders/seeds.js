@@ -792,7 +792,7 @@ function seedModel4(db) {
             regionaffected: 2,
             goodaffected: 'gems',
             eventeffect: 1,
-            timecountstart: 56,
+            timecountstart: 64,
             timecountend: 80
         }),
         db.Events.create({
@@ -801,8 +801,8 @@ function seedModel4(db) {
             regionaffected: 3,
             goodaffected: 'poison',
             eventeffect: -1,
-            timecountstart: 64,
-            timecountend: 80
+            timecountstart: 72,
+            timecountend: 86
         }),
         db.Events.create({
             title: 'Battle of Blackwater Bay',
