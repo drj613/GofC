@@ -14,6 +14,10 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.INTEGER(10),
       allowNull: false
     },
+    player_name: {
+      type: DataTypes.STRING(50),
+      allowNull: false
+    },
     xcoord: {
       type: DataTypes.INTEGER(5),
       allowNull: false
