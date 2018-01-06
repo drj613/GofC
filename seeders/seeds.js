@@ -352,6 +352,10 @@ function seedModel2(db) {
     return Promise.all([
         db.Player.create({
             username: 'SamplePlayer'
+        }),
+        db.Player.create({
+            username: 'RichGuy',
+            gold: 150000
         })
     ]);
 }

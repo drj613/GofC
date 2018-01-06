@@ -56,7 +56,7 @@ function displayPlayer(playerdata) {
 
         //Determine if carriage is moving
         var carriageimage = $('#carriage').attr('src')
-        
+
         if (carriageimage.indexOf('still') >= 0) {
             $('#citydata').text(data[playerdata.cityid - 1].city);
         } else {
@@ -231,15 +231,14 @@ function timer() {
 
 function checkevent(timecount) {
 
-    for (i=0; i<events.length; i++) {
+    for (i = 0; i < events.length; i++) {
         if (timecount === events[i].timecountstart) {
-            if(events[i].goodaffected === 'city') {
+            if (events[i].goodaffected === 'city') {
                 disablecity(events[i]);
-            }
-            else {
+            } else {
                 startgoodevent(events[i]);
             }
-            
+
         }
         if (timecount === events[i].timecountend) {
             endevent(events[i]);
@@ -252,10 +251,10 @@ function startgoodevent(event) {
     console.log(event);
     console.log(event.title + ' has started');
 
-    $.ajax('/cities/event',{
+    $.ajax('/cities/event', {
         type: 'PUT',
         data: event
-    }).then(function(data) {
+    }).then(function (data) {
 
         var $div = $('<div/>', {
             id: 'event' + event.id,
@@ -267,13 +266,13 @@ function startgoodevent(event) {
         console.log($div.text());
         $('#eventbox').append($div);
         $('#eventbox').fadeIn("slow");
-        
-        setTimeout(function() {
+
+        setTimeout(function () {
             $div.remove();
-            if ($('#eventbox').is(':visible')){
+            if ($('#eventbox').is(':visible')) {
                 $('#eventbox').fadeOut('slow');
             }
-        },15000);
+        }, 15000);
 
     });
 }
@@ -284,14 +283,14 @@ function disablecity(event) {
 }
 
 function endevent(event) {
-    
+
     //change eventeffect to 0 in event object so that it can be sent to the API
     event.eventeffect = 0;
 
-    $.ajax('/cities/event',{
+    $.ajax('/cities/event', {
         type: 'PUT',
         data: event
-    }).then(function(data) {
+    }).then(function (data) {
 
         var $div = $('<div/>', {
             id: 'event' + event.id + 'end',
@@ -374,13 +373,37 @@ function sendPlayerUpdate(player) {
 
 }
 
-function upgradetransaction(host) {
-    var currentelement = $(host).parents('.modal-footer');
+function upgradeinventory() {
 
-    //Build new form to upgrade
-    var $transactionform = $('<div/>', {
-        'class': 'upgrade'
-    });
+    var upgradecost = [1000, 5000, 10000, 50000, 100000];
+    var upgradeinventory = [100, 500, 1000, 5000, 10000];
+    var index = -1;
+    if (player.max_space === 20) {
+        index = 0;
+    } else {
+        for (i = 0; i < upgradeinventory.length; i++) {
+            if (player.max_space === upgradeinventory[i]) {
+                if (i === 5) {
+                    alert('You already have the maximum allowed inventory.');
+                } else {
+                    index = i + 1;
+                }
+            }
+        }
+    }
+
+    if (index !== -1) {
+        //Validate player has enough gold to complete transaction
+        if (player.gold < upgradecost[index]) {
+            alert('You don\'t have enough gold to upgrade your inventory at this time');
+        } else {
+            player.gold -= upgradecost[index];
+            player.max_space = upgradeinventory[index];
+
+
+            sendPlayerUpdate(player);
+        }
+    }
 
 
 }
@@ -417,7 +440,7 @@ function route() {
         else {
             routepoint = destinationid;
         }
-        
+
         $.ajax()
         player.cityid = routepoint;
         sendPlayerUpdate(player);
@@ -437,11 +460,11 @@ function arrival(player) {
 
     stopClock();
     var $carriage = $('#carriage').attr('src');
-    
+
     if ($carriage.indexOf('right') > 0) {
         $('#carriage').attr('src', './assets/img/horses-right-still.png');
     } else {
-        $('#carriage').attr('src','./assets/img/horses-left-still.png');
+        $('#carriage').attr('src', './assets/img/horses-left-still.png');
     }
 
     // Set player cityid to new location and update player in db
@@ -452,14 +475,14 @@ function arrival(player) {
     var $city = $('area[data-cityid=\'' + player.cityid + '\']');
     var targetmodal = '#' + $city.attr('id') + 'Modal';
 
-  
+
 
     //Get prices for goods
     index = player.cityid - 1;
     $.get('/game/priceupdate').then((data) => {
 
         var priceobject = data[index].prices;
-       
+
 
         for (var key in priceobject) {
 
@@ -479,15 +502,15 @@ function arrival(player) {
 $(document).one('ready', function () {
 
     updatePlayer().then(function () {
-        
+
         placeplayer(player);
     });
 
     $.ajax('/game/events', {
         type: 'GET'
-    }).then( function(data){
-        events=data;
-        
+    }).then(function (data) {
+        events = data;
+
     });
 
 })
@@ -529,13 +552,13 @@ $(document).ready(function () {
         selllogic(this);
     });
 
-    $(document).on('click', '.upgrade', function () {
-        upgradetransaction(this);
+    $(document).on('click', '#upgrade', function () {
+        upgradeinventory();
     });
 
     // Show and hide inventory
     $(".dHead").on("click", function () {
-        if($('.dBody').hasClass('hidden')){
+        if ($('.dBody').hasClass('hidden')) {
             $('.dBody').removeClass('hidden');
         } else {
             $('.dBody').addClass('hidden');
@@ -543,8 +566,46 @@ $(document).ready(function () {
     });
 
     // Dismissal of event pop-up
-    $(".events").on("click", function(){
+    $(".events").on("click", function () {
         $(".events").fadeOut("slow");
+    })
+
+    $('#upgrade').on('mouseover', function () {
+
+        console.log('Trying');
+
+        var upgradecost = [1000, 5000, 10000, 50000, 100000];
+        var upgradeinventory = [100, 500, 1000, 5000, 10000];
+        var index = -1;
+        if (player.max_space === 20) {
+            index = 0;
+        } else {
+            for (i = 0; i < upgradeinventory.length; i++) {
+                if (player.max_space === upgradeinventory[i]) {
+                    if (i === 5) {
+                        alert('You already have the maximum allowed inventory.');
+                    } else {
+                        index = i + 1;
+                    }
+                }
+            }
+        }
+
+        var tooltiptext = "Spend " + upgradecost[index] + " gold to increase <br> inventory to " + upgradeinventory[index] + ".";
+
+        var $span = $('<span/>', {
+            id: 'tooltip',
+            style: 'margin-left: 10px; background: black; font-color: white; font-family: Times-New-Roman'
+        });
+
+        $span.append(tooltiptext);
+
+        $('#upgradep').append($span);
+       
+    });
+
+    $('#upgrade').on('mouseleave', function() {
+        $('#tooltip').remove();
     })
 
 });
