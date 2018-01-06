@@ -124,6 +124,9 @@ function placeplayer(player) {
         left: placex
     });
 
+    //Brings character into the viewport
+    window.scrollTo(0,placey-250);
+
     
 
     

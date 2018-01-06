@@ -120,6 +120,9 @@ function buildtransaction(type, host) {
     //Assign parent modal to a variable to allow for usage in ajax call
     var currentelement = $(host).parents('.modal');
 
+    //Removes old transaction form if user decides to change their mind on buy or sell
+    $('.transaction').remove();
+
     //Build HTML form for buy transaction
     var transactionform = $('<div/>', {
         'class': 'transaction'
@@ -519,11 +522,14 @@ function displayprices(cityid,display) {
             $(targetmodal).modal({
                 show: true
             });
+            
+            if($('.dBody').hasClass('hidden')){
+            
+                showHideInv();
+            }
         }
 
-        if($('.dBody').hasClass('hidden')){
-            showHideInv();
-        }
+        
 
     });
 }
@@ -600,6 +606,7 @@ $(document).ready(function () {
 
     // Show and hide inventory
     $(".dHead").on("click", function () {
+        
         showHideInv();
     });
 
@@ -609,6 +616,7 @@ $(document).ready(function () {
     })
 
     $(".modal").on("hidden.bs.modal", function(){
+        
         showHideInv();
     });
 
@@ -635,9 +643,25 @@ $(document).ready(function () {
 
         var tooltiptext = "Spend " + upgradecost[index] + " gold to increase <br> inventory to " + upgradeinventory[index] + ".";
 
-        var $span = $('<span/>', {
-            id: 'tooltip',
-            style: 'margin-left: 10px; background: black; font-color: white; font-family: Times-New-Roman'
+        var $span = $('<div/>', {
+            id: 'tooltip'
+            
+        });
+
+        $span.css({
+            'all': 'revert',
+            'padding': '5px',
+            'margin-left': '10px',
+            'background': 'black', 
+            'color': 'white',
+            'font-family': 'Arial',
+            'display': 'inline-block',
+            'line-height': '1em',
+            '-webkit-text-fill-color': 'none',
+            '-webkit-text-stroke-width': 'none',
+            '-webkit-text-stroke-color': 'none',
+            'position': 'fixed',
+            'top': '201px'
         });
 
         $span.append(tooltiptext);

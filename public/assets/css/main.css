@@ -9,6 +9,11 @@ textarea {
 body {
     font-size: .875em;
     line-height: 1.4;
+    
+}
+
+::-webkit-scrollbar {
+    display: none;
 }
 
 .clickable {
@@ -206,6 +211,11 @@ span {
     postion: relative;
     margin-left: 25px;
     
+}
+
+#upgradep {
+    
+    overflow: visible;
 }
 
 
