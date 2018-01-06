@@ -136,6 +136,7 @@ hr {
 }
 
 .dHead {
+    border: solid silver;
     background-image: url("../img/stone-background.jpg");
     opacity: 1;
     border-radius: 2%;
