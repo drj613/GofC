@@ -523,11 +523,14 @@ function displayprices(cityid,display) {
             $(targetmodal).modal({
                 show: true
             });
+            
+            if($('.dBody').hasClass('hidden')){
+            
+                showHideInv();
+            }
         }
 
-        if($('.dBody').hasClass('hidden')){
-            showHideInv();
-        }
+        
 
     });
 }
@@ -604,6 +607,7 @@ $(document).ready(function () {
 
     // Show and hide inventory
     $(".dHead").on("click", function () {
+        
         showHideInv();
     });
 
@@ -613,6 +617,7 @@ $(document).ready(function () {
     })
 
     $(".modal").on("hidden.bs.modal", function(){
+        
         showHideInv();
     });
     
