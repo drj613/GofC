@@ -54,11 +54,23 @@ function findtotal(playerdata) {
 // Updates player display
 function displayPlayer(playerdata) {
 
-    $.ajax('/game/priceupdate', {
+    var url = '/game/priceupdate/' + playerdata.username;
+
+    console.log(url);
+
+    $.ajax(url, {
         type: 'GET'
     }).then(function (data) {
         // Calculate total inventory
         var totalinventory = findtotal(playerdata);
+
+        //Get city data from map
+        var currentcity = $('area[data-cityid=\'' + playerdata.cityid + '\']').attr('alt');
+        console.log(currentcity);
+
+        var destination = $('area[data-cityid=\'' + playerdata.destinationid + '\']').attr('alt');
+        console.log(destination);
+
         $('#playerdata').text(playerdata.username);
         $('#golddata').text(playerdata.gold);
 
@@ -66,9 +78,9 @@ function displayPlayer(playerdata) {
         var carriageimage = $('#carriage').attr('src')
 
         if (carriageimage.indexOf('still') >= 0) {
-            $('#citydata').text(data[playerdata.cityid - 1].city);
+            $('#citydata').text(currentcity);
         } else {
-            $('#citydata').text('Traveling to ' + data[playerdata.cityid - 1].city);
+            $('#citydata').text('Traveling to ' + currentcity);
         }
 
 
@@ -76,7 +88,7 @@ function displayPlayer(playerdata) {
         if (playerdata.destinationid === 0) {
             $('#destinationdata').text('None');
         } else {
-            $('#destinationdata').text(data[playerdata.destinationid - 1].city);
+            $('#destinationdata').text(destination);
         }
 
         $('#timedata').text(calendar(playerdata.timecount));
@@ -259,7 +271,7 @@ function startgoodevent(event) {
     console.log(event);
     console.log(event.title + ' has started');
 
-    $.ajax('/cities/event', {
+    $.ajax('/cities/event/' + player.username, {
         type: 'PUT',
         data: event
     }).then(function (data) {
@@ -295,7 +307,7 @@ function endevent(event) {
     //change eventeffect to 0 in event object so that it can be sent to the API
     event.eventeffect = 0;
 
-    $.ajax('/cities/event', {
+    $.ajax('/cities/event/' + player.username, {
         type: 'PUT',
         data: event
     }).then(function (data) {
@@ -436,12 +448,14 @@ function route() {
         }
         //All travel from The Twins (id 3) to any southern city (ids 5-11) routed through the crossroads (id 4)
         //All travel from all southern cities (ids 6-11) to all northern cities (id 1-3) + The Eyrie (id 5) routed through the crossroads (id 4)
-        //All travel from 
-        else if ((cityid === 3 && destinationid > 4) || (cityid > 5 && destinationid < 6) || (cityid === 5)) {
+        //All travel from the Eyrie period
+        //All travel from King's Landing to Riverrun, and vice versa
+        else if ((cityid === 3 && destinationid > 4) || (cityid > 5 && destinationid < 6) || (cityid === 5)
+                || (cityid === 8 && destinationid === 6) || (cityid === 6 && destinationid === 8)) {
             routepoint = 4;
         }
-        //Route from Casterly Rock(id 10) to Dragonstone (id 11) routed through King's Landing (id 8) 
-        else if (cityid === 10 && destinationid === 11) {
+        //Route from Casterly Rock(id 10) to Dragonstone (id 11), and vice versa, routed through King's Landing (id 8) 
+        else if ((cityid === 10 && destinationid === 11) || (cityid === 11 && destinationid === 10)) {
             routepoint = 8;
         }
         //All other travel simply routed to destination
@@ -479,15 +493,19 @@ function arrival(player) {
     player.destinationid = 0;
     sendPlayerUpdate(player);
 
-    //Find modal for arrival city
-    var $city = $('area[data-cityid=\'' + player.cityid + '\']');
-    var targetmodal = '#' + $city.attr('id') + 'Modal';
-
-
-
     //Get prices for goods
-    index = player.cityid - 1;
-    $.get('/game/priceupdate').then((data) => {
+    displayprices(player.cityid,true);
+
+    
+    
+}
+
+function displayprices(cityid,display) {
+
+    var $city = $('area[data-cityid=\'' + cityid + '\']');
+    var targetmodal = '#' + $city.attr('id') + 'Modal';
+    var index = player.cityid - 1;
+    $.get('/game/priceupdate/' + player.username).then((data) => {
 
         var priceobject = data[index].prices;
 
@@ -497,10 +515,12 @@ function arrival(player) {
             $(targetmodal).find('.' + key + 'price').text(priceobject[key]);
 
         }
-
-        $(targetmodal).modal({
-            show: true
-        });
+        
+        if (display) {
+            $(targetmodal).modal({
+                show: true
+            });
+        }
 
         if($('.dBody').hasClass('hidden')){
             showHideInv();
@@ -509,13 +529,13 @@ function arrival(player) {
     });
 }
 
-
 // Run once to bring player data into page 
 $(document).one('ready', function () {
 
     updatePlayer().then(function () {
 
         placeplayer(player);
+        displayprices(player.cityid,false);
     });
 
     $.ajax('/game/events', {
@@ -538,10 +558,21 @@ $(document).ready(function () {
     // When user clicks on a map location
     $('.clickable').click(function () {
 
-        startClock();
-        player.destinationid = $(this).attr('data-cityid');
-        sendPlayerUpdate(player);
-        route(player);
+        
+        //Check to see if player is moving to new city or just wants to see the city he just left
+        if (parseInt($(this).attr('data-cityid')) === player.cityid) {
+            console.log('Skip update');
+            var targetmodal = '#' + $(this).attr('id') + 'Modal';
+            $(targetmodal).modal({
+                show: true
+            });
+        } else {
+
+            startClock();
+            player.destinationid = $(this).attr('data-cityid');
+            sendPlayerUpdate(player);
+            route(player);
+        }
 
     });
 
@@ -621,10 +652,10 @@ $(document).ready(function () {
         $span.append(tooltiptext);
 
         $('#upgradep').append($span);
-       
+
     });
 
-    $('#upgrade').on('mouseleave', function() {
+    $('#upgrade').on('mouseleave', function () {
         $('#tooltip').remove();
 >>>>>>> 42bb481fcbed552f11b72a9487e4b9a426b0a399
     })
