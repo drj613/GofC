@@ -601,15 +601,7 @@ $(document).ready(function () {
 
     // Show and hide inventory
     $(".dHead").on("click", function () {
-<<<<<<< HEAD
         showHideInv();
-=======
-        if ($('.dBody').hasClass('hidden')) {
-            $('.dBody').removeClass('hidden');
-        } else {
-            $('.dBody').addClass('hidden');
-        }
->>>>>>> 42bb481fcbed552f11b72a9487e4b9a426b0a399
     });
 
     // Dismissal of event pop-up
@@ -617,10 +609,10 @@ $(document).ready(function () {
         $(".events").fadeOut("slow");
     })
 
-<<<<<<< HEAD
     $(".modal").on("hidden.bs.modal", function(){
         showHideInv();
-=======
+    });
+    
     $('#upgrade').on('mouseover', function () {
 
         console.log('Trying');
@@ -657,7 +649,6 @@ $(document).ready(function () {
 
     $('#upgrade').on('mouseleave', function () {
         $('#tooltip').remove();
->>>>>>> 42bb481fcbed552f11b72a9487e4b9a426b0a399
     })
 
 });

@@ -138,7 +138,7 @@ function findratio () {
     
     if (hasScrollbar) {
         //Subtract width of scrollbar from ratio calculation
-        var ratio = ($(document).width()-17)/1560;
+        var ratio = ($(document).width())/1560;
     }
     else {
         var ratio = $(document).width()/1560;
