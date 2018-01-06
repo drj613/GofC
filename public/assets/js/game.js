@@ -275,12 +275,12 @@ function startgoodevent(event) {
         type: 'PUT',
         data: event
     }).then(function (data) {
-
+        $(".events").empty();
         var $div = $('<div/>', {
             id: 'event' + event.id,
             class: 'events'
         });
-        $div.hide().append('<h4 id="eventName">' + event.title + '</h4><hr><p> ' + event.description + '</p>');
+        $div.append('<h4 id="eventName">' + event.title + '</h4><hr><p> ' + event.description + '</p>');
         $div.show();
 
         console.log($div.text());
@@ -288,7 +288,6 @@ function startgoodevent(event) {
         $('#eventbox').fadeIn("slow");
 
         setTimeout(function () {
-            $div.remove();
             if ($('#eventbox').is(':visible')) {
                 $('#eventbox').fadeOut('slow');
             }
@@ -612,7 +611,7 @@ $(document).ready(function () {
     $(".modal").on("hidden.bs.modal", function(){
         showHideInv();
     });
-    
+
     $('#upgrade').on('mouseover', function () {
 
         console.log('Trying');
