@@ -91,6 +91,7 @@ a:hover {
 
 #gamebox {
     position: fixed;
+    width: 510px;
     top: 25px;
     left: 25px;
     z-index: 3;
@@ -171,6 +172,7 @@ hr {
     border: white transparent;
     border-radius: 1%;
     padding: 10px;
+    font-weight: 700;
 }
 
 #tooltip {
@@ -206,6 +208,7 @@ span {
 /* Chris tooltip */
 #upgrade {
     postion: relative;
+    padding: 5px;
     margin-left: 25px;
     
 }
