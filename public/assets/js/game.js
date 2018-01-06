@@ -636,9 +636,23 @@ $(document).ready(function () {
 
         var tooltiptext = "Spend " + upgradecost[index] + " gold to increase <br> inventory to " + upgradeinventory[index] + ".";
 
-        var $span = $('<span/>', {
-            id: 'tooltip',
-            style: 'margin-left: 10px; background: black; font-color: white; font-family: Times-New-Roman'
+        var $span = $('<div/>', {
+            id: 'tooltip'
+            
+        });
+
+        $span.css({
+            'all': 'revert',
+            'padding': '5px',
+            'margin-left': '10px',
+            'background': 'black', 
+            'color': 'white',
+            'font-family': 'Arial',
+            'display': 'inline-block',
+            'line-height': '1em',
+            '-webkit-text-fill-color': 'none',
+            '-webkit-text-stroke-width': 'none',
+            '-webkit-text-stroke-color': 'none'
         });
 
         $span.append(tooltiptext);
