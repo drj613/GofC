@@ -570,15 +570,7 @@ $(document).ready(function () {
 
     // Show and hide inventory
     $(".dHead").on("click", function () {
-<<<<<<< HEAD
         showHideInv();
-=======
-        if ($('.dBody').hasClass('hidden')) {
-            $('.dBody').removeClass('hidden');
-        } else {
-            $('.dBody').addClass('hidden');
-        }
->>>>>>> 42bb481fcbed552f11b72a9487e4b9a426b0a399
     });
 
     // Dismissal of event pop-up
@@ -586,47 +578,8 @@ $(document).ready(function () {
         $(".events").fadeOut("slow");
     })
 
-<<<<<<< HEAD
     $(".modal").on("hidden.bs.modal", function(){
         showHideInv();
-=======
-    $('#upgrade').on('mouseover', function () {
-
-        console.log('Trying');
-
-        var upgradecost = [1000, 5000, 10000, 50000, 100000];
-        var upgradeinventory = [100, 500, 1000, 5000, 10000];
-        var index = -1;
-        if (player.max_space === 20) {
-            index = 0;
-        } else {
-            for (i = 0; i < upgradeinventory.length; i++) {
-                if (player.max_space === upgradeinventory[i]) {
-                    if (i === 5) {
-                        alert('You already have the maximum allowed inventory.');
-                    } else {
-                        index = i + 1;
-                    }
-                }
-            }
-        }
-
-        var tooltiptext = "Spend " + upgradecost[index] + " gold to increase <br> inventory to " + upgradeinventory[index] + ".";
-
-        var $span = $('<span/>', {
-            id: 'tooltip',
-            style: 'margin-left: 10px; background: black; font-color: white; font-family: Times-New-Roman'
-        });
-
-        $span.append(tooltiptext);
-
-        $('#upgradep').append($span);
-       
-    });
-
-    $('#upgrade').on('mouseleave', function() {
-        $('#tooltip').remove();
->>>>>>> 42bb481fcbed552f11b72a9487e4b9a426b0a399
     })
 
 });
