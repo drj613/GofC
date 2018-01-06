@@ -120,6 +120,9 @@ function buildtransaction(type, host) {
     //Assign parent modal to a variable to allow for usage in ajax call
     var currentelement = $(host).parents('.modal');
 
+    //Removes old transaction form if user decides to change their mind on buy or sell
+    $('.transaction').remove();
+
     //Build HTML form for buy transaction
     var transactionform = $('<div/>', {
         'class': 'transaction'
@@ -652,7 +655,9 @@ $(document).ready(function () {
             'line-height': '1em',
             '-webkit-text-fill-color': 'none',
             '-webkit-text-stroke-width': 'none',
-            '-webkit-text-stroke-color': 'none'
+            '-webkit-text-stroke-color': 'none',
+            'position': 'fixed',
+            'top': '201px'
         });
 
         $span.append(tooltiptext);

@@ -20,16 +20,17 @@ $(document).ready(function(){
         $.ajax('/player/'+ username, {
             type: 'GET'
         }).then( function(data) {
-
+            
+        $('.verify').remove();
         if (data === null) {
 
-           $('#splash-username').append("<p>We have no record of this username. Would you like to create a new player?</p>");
-           $('#splash-username').append('<button id=\'create\'>Yes</button>    <button class=\'cancel\'>No</button>');
+           $('#splash-username').append("<p class='verify'>We have no record of this username. Would you like to create a new player?</p>");
+           $('#splash-username').append('<button class=\'verify\' id=\'create\'>Yes</button>    <button class=\'cancel verify\'>No</button>');
            
         } else {
 
-            $('#splash-username').append("<p>We already have that username on record. Would you like to continue?</p>");
-            $('#splash-username').append('<button id=\'continue\'>Yes</button>    <button class=\'cancel\'>No</button>');  
+            $('#splash-username').append("<p class='verify'>We already have that username on record. Would you like to continue?</p>");
+            $('#splash-username').append('<button class=\'verify\' id=\'continue\'>Yes</button>    <button class=\'cancel verify\'>No</button>');  
         }
 
     });
