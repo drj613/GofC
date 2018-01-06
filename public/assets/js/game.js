@@ -649,6 +649,7 @@ $(document).ready(function () {
 
     $('#upgrade').on('mouseleave', function () {
         $('#tooltip').remove();
+
     })
 
 });
