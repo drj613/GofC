@@ -91,7 +91,7 @@ a:hover {
 
 #gamebox {
     position: fixed;
-    width: 510px;
+    
     top: 25px;
     left: 25px;
     z-index: 3;
